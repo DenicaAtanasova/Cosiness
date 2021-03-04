@@ -1,5 +1,5 @@
 # Cosiness
-Online shop
+## Online shop
 
 # 🛠 Built with:
 * [.NET 5.0](https://github.com/dotnet/core)
@@ -12,5 +12,7 @@ Online shop
 * [LibraryManager](https://github.com/aspnet/LibraryManager)
 
 # License
-
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details
+
+# Database design
+![alt text](https://github.com/DenicaAtanasova/Cosiness/blob/main/Cosiness_Database_Diagram.png "Cosiness Database Diagram")
