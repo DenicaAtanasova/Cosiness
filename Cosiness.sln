@@ -5,13 +5,21 @@ VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{B147040A-0DD6-467D-9E39-B686128B37AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosiness.Data", "Data\Cosiness.Data\Cosiness.Data.csproj", "{40B7E879-A09F-4424-A928-2AD2F4F4AE29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosiness.Data", "Data\Cosiness.Data\Cosiness.Data.csproj", "{40B7E879-A09F-4424-A928-2AD2F4F4AE29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosiness.Models", "Data\Cosiness.Models\Cosiness.Models.csproj", "{55D957B1-CA42-405A-ABC6-920C68FA0B3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosiness.Models", "Data\Cosiness.Models\Cosiness.Models.csproj", "{55D957B1-CA42-405A-ABC6-920C68FA0B3B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{86FF132E-30B2-486A-A3D0-BCCFD373F3CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosiness.Web", "Web\Cosiness.Web\Cosiness.Web.csproj", "{36214700-57CE-476A-B837-E941E56A9496}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosiness.Web", "Web\Cosiness.Web\Cosiness.Web.csproj", "{36214700-57CE-476A-B837-E941E56A9496}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{2CA6C098-4CA5-4925-AFB2-989EB577BE9B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosiness.Services.Data", "Services\Cosiness.Services.Data\Cosiness.Services.Data.csproj", "{4AC3236E-7943-42FD-93C4-08284F2CAF47}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5C7D0084-EEC8-4A6E-B26A-D6F874E641AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosiness.Servies.Data.Tests", "Tests\Cosiness.Servies.Data.Tests\Cosiness.Servies.Data.Tests.csproj", "{EC79506F-8525-43BF-B9E8-3BA17221ABF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +39,14 @@ Global
 		{36214700-57CE-476A-B837-E941E56A9496}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36214700-57CE-476A-B837-E941E56A9496}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36214700-57CE-476A-B837-E941E56A9496}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AC3236E-7943-42FD-93C4-08284F2CAF47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AC3236E-7943-42FD-93C4-08284F2CAF47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AC3236E-7943-42FD-93C4-08284F2CAF47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AC3236E-7943-42FD-93C4-08284F2CAF47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC79506F-8525-43BF-B9E8-3BA17221ABF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC79506F-8525-43BF-B9E8-3BA17221ABF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC79506F-8525-43BF-B9E8-3BA17221ABF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC79506F-8525-43BF-B9E8-3BA17221ABF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +55,8 @@ Global
 		{40B7E879-A09F-4424-A928-2AD2F4F4AE29} = {B147040A-0DD6-467D-9E39-B686128B37AD}
 		{55D957B1-CA42-405A-ABC6-920C68FA0B3B} = {B147040A-0DD6-467D-9E39-B686128B37AD}
 		{36214700-57CE-476A-B837-E941E56A9496} = {86FF132E-30B2-486A-A3D0-BCCFD373F3CA}
+		{4AC3236E-7943-42FD-93C4-08284F2CAF47} = {2CA6C098-4CA5-4925-AFB2-989EB577BE9B}
+		{EC79506F-8525-43BF-B9E8-3BA17221ABF0} = {5C7D0084-EEC8-4A6E-B26A-D6F874E641AE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D9B231FB-422E-4D53-90C0-0A4483CDA55A}
