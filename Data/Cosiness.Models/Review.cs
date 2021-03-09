@@ -1,11 +1,10 @@
 ﻿namespace Cosiness.Models
 {
+    using Common;
     using System;
 
-    public class Review
+    public class Review : BaseEntity<string>
     {
-        public int Id { get; set; }
-
         public DateTime CreatedOn { get; set; }
 
         public int Raiting { get; set; }

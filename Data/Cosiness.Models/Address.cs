@@ -1,11 +1,10 @@
 ﻿namespace Cosiness.Models
 {
+    using Common;
     using Enums;
 
-    public class Address
+    public class Address : BaseEntity<string>
     {
-        public string Id { get; set; }
-
         public AddressType AddresType { get; set; }
 
         public Town Town{ get; set; }

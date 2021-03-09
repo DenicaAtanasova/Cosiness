@@ -1,16 +1,16 @@
 ﻿namespace Cosiness.Models
 {
+    using Common;
+
     using System;
     using System.Collections.Generic;
 
-    public class ShoppingCart
+    public class ShoppingCart : BaseEntity<string>
     {
         public ShoppingCart()
         {
             this.Products = new HashSet<ShoppingCartProduct>();
         }
-
-        public string Id { get; set; }
 
         public DateTime CreatedOn { get; set; }
 

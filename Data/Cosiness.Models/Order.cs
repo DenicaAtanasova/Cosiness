@@ -1,18 +1,17 @@
 ﻿namespace Cosiness.Models
 {
+    using Common;
     using Enums;
 
     using System;
     using System.Collections.Generic;
 
-    public class Order
+    public class Order : BaseEntity<string>
     {
         public Order()
         {
             this.Products = new HashSet<OrderProduct>();
         }
-
-        public string Id { get; set; }
 
         public string RefNumber { get; set; }
 

@@ -1,9 +1,8 @@
 ﻿namespace Cosiness.Models
 {
-    public class Town
-    {
-        public string Id { get; set; }
+    using Common;
 
-        public string Name { get; set; }
+    public class Town : BaseNamedEntity<string>
+    {
     }
 }

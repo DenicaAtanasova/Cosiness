@@ -1,15 +1,15 @@
 ﻿namespace Cosiness.Models
 {
+    using Common;
+
     using System.Collections.Generic;
 
-    public class Characteristic
+    public class Characteristic : BaseEntity<string>
     {
         public Characteristic()
         {
             this.Colors = new HashSet<Color>();
         }
-
-        public string Id { get; set; }
 
         public Material Material { get; set; }
 

@@ -1,9 +1,9 @@
 ﻿namespace Cosiness.Models
 {
-    public class Image
-    {
-        public string Id { get; set; }
+    using Common;
 
+    public class Image : BaseEntity<string>
+    {
         public string Url { get; set; }
 
         public string Caption { get; set; } //Name
