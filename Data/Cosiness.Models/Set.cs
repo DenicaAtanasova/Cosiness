@@ -4,9 +4,9 @@
 
     using System.Collections.Generic;
 
-    public class Seria : BaseNamedEntity<string>
+    public class Set : BaseNamedEntity<string>
     {
-        public Seria()
+        public Set()
         {
             this.Products = new HashSet<Product>();
         }

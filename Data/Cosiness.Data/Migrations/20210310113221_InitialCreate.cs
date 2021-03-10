@@ -83,7 +83,7 @@ namespace Cosiness.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Serias",
+                name: "Sets",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -91,7 +91,7 @@ namespace Cosiness.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Serias", x => x.Id);
+                    table.PrimaryKey("PK_Sets", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -239,7 +239,7 @@ namespace Cosiness.Data.Migrations
                     RefNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CategoryId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    SeriaId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    SetId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
@@ -252,9 +252,9 @@ namespace Cosiness.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Products_Serias_SeriaId",
-                        column: x => x.SeriaId,
-                        principalTable: "Serias",
+                        name: "FK_Products_Sets_SetId",
+                        column: x => x.SetId,
+                        principalTable: "Sets",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -337,8 +337,7 @@ namespace Cosiness.Data.Migrations
                 name: "Reviews",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Raiting = table.Column<int>(type: "int", nullable: false),
                     Comment = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -578,9 +577,9 @@ namespace Cosiness.Data.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_SeriaId",
+                name: "IX_Products_SetId",
                 table: "Products",
-                column: "SeriaId");
+                column: "SetId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reviews_CreatorId",
@@ -665,7 +664,7 @@ namespace Cosiness.Data.Migrations
                 name: "Categories");
 
             migrationBuilder.DropTable(
-                name: "Serias");
+                name: "Sets");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

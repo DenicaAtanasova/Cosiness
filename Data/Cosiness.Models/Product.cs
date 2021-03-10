@@ -19,7 +19,7 @@
 
         public Category Category { get; set; }
 
-        public Seria Seria { get; set; }
+        public Set Set { get; set; }
 
         public decimal Price { get; set; }
 

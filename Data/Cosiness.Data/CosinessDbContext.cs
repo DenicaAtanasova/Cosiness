@@ -29,7 +29,7 @@
 
         public DbSet<Characteristic> Characteristics { get; set; }
 
-        public DbSet<Seria> Serias { get; set; }
+        public DbSet<Set> Sets { get; set; }
 
         public DbSet<Color> Colors { get; set; }
 

@@ -37,6 +37,7 @@ namespace Cosiness.Data.Migrations
             modelBuilder.Entity("Cosiness.Models.Address", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AddresType")
@@ -66,6 +67,7 @@ namespace Cosiness.Data.Migrations
             modelBuilder.Entity("Cosiness.Models.Category", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
@@ -79,6 +81,7 @@ namespace Cosiness.Data.Migrations
             modelBuilder.Entity("Cosiness.Models.Characteristic", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Dimension")
@@ -104,6 +107,7 @@ namespace Cosiness.Data.Migrations
             modelBuilder.Entity("Cosiness.Models.Color", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
@@ -209,6 +213,7 @@ namespace Cosiness.Data.Migrations
             modelBuilder.Entity("Cosiness.Models.Image", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Caption")
@@ -232,6 +237,7 @@ namespace Cosiness.Data.Migrations
             modelBuilder.Entity("Cosiness.Models.Material", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
@@ -245,6 +251,7 @@ namespace Cosiness.Data.Migrations
             modelBuilder.Entity("Cosiness.Models.Order", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("BillingAddressId")
@@ -321,6 +328,7 @@ namespace Cosiness.Data.Migrations
             modelBuilder.Entity("Cosiness.Models.Product", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CategoryId")
@@ -335,24 +343,23 @@ namespace Cosiness.Data.Migrations
                     b.Property<string>("RefNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SeriaId")
+                    b.Property<string>("SetId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("SeriaId");
+                    b.HasIndex("SetId");
 
                     b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Cosiness.Models.Review", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
@@ -378,9 +385,10 @@ namespace Cosiness.Data.Migrations
                     b.ToTable("Reviews");
                 });
 
-            modelBuilder.Entity("Cosiness.Models.Seria", b =>
+            modelBuilder.Entity("Cosiness.Models.Set", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
@@ -388,12 +396,13 @@ namespace Cosiness.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Serias");
+                    b.ToTable("Sets");
                 });
 
             modelBuilder.Entity("Cosiness.Models.ShoppingCart", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedOn")
@@ -432,6 +441,7 @@ namespace Cosiness.Data.Migrations
             modelBuilder.Entity("Cosiness.Models.Town", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
@@ -644,13 +654,13 @@ namespace Cosiness.Data.Migrations
                         .WithMany()
                         .HasForeignKey("CategoryId");
 
-                    b.HasOne("Cosiness.Models.Seria", "Seria")
+                    b.HasOne("Cosiness.Models.Set", "Set")
                         .WithMany("Products")
-                        .HasForeignKey("SeriaId");
+                        .HasForeignKey("SetId");
 
                     b.Navigation("Category");
 
-                    b.Navigation("Seria");
+                    b.Navigation("Set");
                 });
 
             modelBuilder.Entity("Cosiness.Models.Review", b =>
@@ -779,7 +789,7 @@ namespace Cosiness.Data.Migrations
                     b.Navigation("Reviews");
                 });
 
-            modelBuilder.Entity("Cosiness.Models.Seria", b =>
+            modelBuilder.Entity("Cosiness.Models.Set", b =>
                 {
                     b.Navigation("Products");
                 });
