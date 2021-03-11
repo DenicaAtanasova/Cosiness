@@ -16,6 +16,8 @@
         private readonly CosinessDbContext _context;
         private readonly ISetsService _setsService;
         private readonly string _setId;
+        private readonly string IncorrectIdMessage = "SetsService - incorrect id: {0}";
+        private readonly string InvalidParameterMessage = "SetsService - parameter cannot be null or empty!";
 
         public SetsServiceTest()
         {
@@ -50,14 +52,15 @@
             Assert.Equal(expectedCount, setCount);
         }
 
-        [Fact]
-        public async Task Create_ShouldThrowWhenNameNullOrEmpty()
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        public async Task Create_ShouldThrowWhenNameNullOrEmpty(string name)
         {
-            await Assert.ThrowsAsync<ArgumentException>(
-                 async () => await _setsService.CreateAsync(null));
+            var exception = await Assert.ThrowsAsync<ArgumentException>(
+                 async () => await _setsService.CreateAsync(name));
 
-            await Assert.ThrowsAsync<ArgumentException>(
-                 async () => await _setsService.CreateAsync(""));
+            Assert.Equal(InvalidParameterMessage, exception.Message);
         }
 
         [Fact]
@@ -77,8 +80,10 @@
             var incorrectId = Guid.NewGuid().ToString();
             var updatedSetName = "Incorrect Id";
 
-            await Assert.ThrowsAsync<ArgumentException>(
+            var exception = await Assert.ThrowsAsync<ArgumentException>(
                 async () => await _setsService.UpdateAsync(incorrectId, updatedSetName));
+
+            Assert.Equal(string.Format(IncorrectIdMessage, incorrectId), exception.Message);
         }
 
         [Fact]
@@ -92,8 +97,10 @@
         public async Task Delete_ShouldThrowWhenIncorrectId()
         {
             var incorrectId = Guid.NewGuid().ToString();
-            await Assert.ThrowsAsync<ArgumentException>(
+            var exception = await Assert.ThrowsAsync<ArgumentException>(
                 async () => await _setsService.DeleteAsync(incorrectId));
+
+            Assert.Equal(string.Format(IncorrectIdMessage, incorrectId), exception.Message);
         }
     }
 }

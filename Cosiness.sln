@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosiness.Services.Data", "S
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5C7D0084-EEC8-4A6E-B26A-D6F874E641AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosiness.Servies.Data.Tests", "Tests\Cosiness.Servies.Data.Tests\Cosiness.Servies.Data.Tests.csproj", "{EC79506F-8525-43BF-B9E8-3BA17221ABF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosiness.Servies.Data.Tests", "Tests\Cosiness.Servies.Data.Tests\Cosiness.Servies.Data.Tests.csproj", "{EC79506F-8525-43BF-B9E8-3BA17221ABF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

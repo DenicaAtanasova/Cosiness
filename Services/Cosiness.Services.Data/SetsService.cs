@@ -2,10 +2,10 @@
 {
     using Cosiness.Data;
     using Cosiness.Models;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
+    using Cosiness.Services.Data.Helpers;
+
+    using Microsoft.EntityFrameworkCore;
+
     using System.Threading.Tasks;
 
     public class SetsService : ISetsService
@@ -17,19 +17,51 @@
             _context = context;
         }
 
-        public Task<string> CreateAsync(string name)
+        public async Task<string> CreateAsync(string name)
         {
-            throw new NotImplementedException();
+            this.ThrowIfNullOrEmpty(name);
+
+            var setFromDb = await _context.Sets
+                .FirstOrDefaultAsync(x => x.Name == name);
+            if (setFromDb is not null)
+            {
+                return setFromDb.Id;
+            }
+
+            var set = new Set
+            {
+                Name = name
+            };
+
+            var createdEntity = _context.Sets.Add(set).Entity;
+            await _context.SaveChangesAsync();
+
+            return createdEntity.Id;
         }
 
-        public Task DeleteAsync(string id)
+        public async Task DeleteAsync(string id)
         {
-            throw new NotImplementedException();
+            var setFromDb = await _context.Sets
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            this.ThrowIfIncorrectId(setFromDb, id);
+
+            _context.Sets.Remove(setFromDb);
+            await _context.SaveChangesAsync();
         }
 
-        public Task UpdateAsync(string id, string name)
+        public async Task UpdateAsync(string id, string name)
         {
-            throw new NotImplementedException();
+            this.ThrowIfNullOrEmpty(name);
+
+            var setFromDb = await _context.Sets
+                .FirstOrDefaultAsync(x => x.Id == id);
+            this.ThrowIfIncorrectId(setFromDb, id);
+
+            setFromDb.Name = name;
+
+            _context.Sets.Update(setFromDb);
+            await _context.SaveChangesAsync();
         }
     }
 }
