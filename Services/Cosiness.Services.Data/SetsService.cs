@@ -8,7 +8,7 @@
 
     using System.Threading.Tasks;
 
-    public class SetsService : ISetsService
+    public class SetsService : ISetsService, IValidatable
     {
         private readonly CosinessDbContext _context;
 
@@ -41,6 +41,8 @@
 
         public async Task DeleteAsync(string id)
         {
+            this.ThrowIfEmptyCollection(_context.Sets);
+
             var setFromDb = await _context.Sets
                 .FirstOrDefaultAsync(x => x.Id == id);
 

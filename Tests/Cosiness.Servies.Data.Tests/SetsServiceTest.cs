@@ -16,8 +16,9 @@
         private readonly CosinessDbContext _context;
         private readonly ISetsService _setsService;
         private readonly string _setId;
-        private readonly string IncorrectIdMessage = "SetsService - incorrect id: {0}";
-        private readonly string InvalidParameterMessage = "SetsService - parameter cannot be null or empty!";
+        private readonly string IncorrectIdMessage = "SetsService - Incorrect id: {0}!";
+        private readonly string InvalidParameterMessage = "SetsService - Parameter cannot be null or empty!";
+        private readonly string EmptyCollectionMessage = "SetsService - Collection is empty!";
 
         public SetsServiceTest()
         {
@@ -89,8 +90,21 @@
         [Fact]
         public async Task Delete_ShouldWorkCorrectly()
         {
+            Assert.NotEmpty(_context.Sets);
+
             await _setsService.DeleteAsync(_setId);
             Assert.Empty(_context.Sets);
+        }
+
+        [Fact]
+        public async Task Delete_ShouldThrowWhenEmprtyCollection()
+        {
+            await _setsService.DeleteAsync(_setId);
+
+            var exception = await Assert.ThrowsAsync<InvalidOperationException>(
+                async () => await _setsService.DeleteAsync(_setId));
+
+            Assert.Equal(EmptyCollectionMessage, exception.Message);
         }
 
         [Fact]
