@@ -1,6 +1,6 @@
 ﻿namespace Cosiness.Services.Data.Helpers
 {
-    public interface IValidatable
+    public interface IValidator
     {
     }
 }

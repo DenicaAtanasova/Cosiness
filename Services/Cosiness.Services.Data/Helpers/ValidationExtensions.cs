@@ -6,7 +6,7 @@
 
     public static class ValidationExtensions
     {
-        public static void ThrowIfNullOrEmpty(this IValidatable service, string param)
+        public static void ThrowIfNullOrEmpty(this IValidator service, string param)
         {
             if (string.IsNullOrEmpty(param))
             {
@@ -14,7 +14,7 @@
             }
         }
 
-        public static void ThrowIfIncorrectId(this IValidatable service, object entity, string id)
+        public static void ThrowIfIncorrectId(this IValidator service, object entity, string id)
         {
             if (entity is null)
             {
@@ -22,7 +22,7 @@
             }
         }
 
-        public static void ThrowIfEmptyCollection(this IValidatable service, IEnumerable<object> collection)
+        public static void ThrowIfEmptyCollection(this IValidator service, IEnumerable<object> collection)
         {
             if (!collection.Any())
             {

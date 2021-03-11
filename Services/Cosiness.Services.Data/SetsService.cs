@@ -8,7 +8,7 @@
 
     using System.Threading.Tasks;
 
-    public class SetsService : ISetsService, IValidatable
+    public class SetsService : ISetsService, IValidator
     {
         private readonly CosinessDbContext _context;
 
