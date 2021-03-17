@@ -3,7 +3,7 @@
     using Common;
     using System.Collections.Generic;
 
-    public class Material : BaseNamedEntity<string>
+    public class Material : BaseNameOnlyEntity<string>
     {
         public Material()
         {

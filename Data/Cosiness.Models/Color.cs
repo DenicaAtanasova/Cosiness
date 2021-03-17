@@ -4,7 +4,7 @@
 
     using System.Collections.Generic;
 
-    public class Color : BaseNamedEntity<string>
+    public class Color : BaseNameOnlyEntity<string>
     {
         public Color()
         {

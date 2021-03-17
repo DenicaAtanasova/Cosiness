@@ -1,8 +1,10 @@
 ﻿namespace Cosiness.Services.Data
 {
+    using Cosiness.Models.Common;
     using System.Threading.Tasks;
 
-    public interface ISetsService
+    public interface IBaseNameOnlyEntitiesService<TEntity>
+        where TEntity : IBaseNameOnlyEntity<string>, new()
     {
         Task<string> CreateAsync(string name);
 

@@ -2,7 +2,8 @@
 {
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public abstract class BaseNamedEntity<TKey>
+    public abstract class BaseNameOnlyEntity<TKey> 
+        : IBaseNameOnlyEntity<TKey>
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public TKey Id { get; set; }

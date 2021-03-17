@@ -1,39 +1,42 @@
 ﻿namespace Cosiness.Services.Data
 {
     using Cosiness.Data;
-    using Cosiness.Models;
+    using Cosiness.Models.Common;
     using Cosiness.Services.Data.Helpers;
 
     using Microsoft.EntityFrameworkCore;
 
+    using System;
     using System.Threading.Tasks;
 
-    public class SetsService : ISetsService, IValidator
+    public class BaseNameOnlyEntitiesService<TEntity> 
+        : IBaseNameOnlyEntitiesService<TEntity>, IValidator
+        where TEntity : BaseNameOnlyEntity<string>, new()
     {
         private readonly CosinessDbContext _context;
-
-        public SetsService(CosinessDbContext context)
+        public BaseNameOnlyEntitiesService(CosinessDbContext context)
         {
             _context = context;
         }
-
+         
         public async Task<string> CreateAsync(string name)
         {
             this.ThrowIfNullOrEmpty(name);
 
-            var setFromDb = await _context.Sets
+            var entityFromDb = await _context.Set<TEntity>()
                 .FirstOrDefaultAsync(x => x.Name == name);
-            if (setFromDb is not null)
+
+            if (entityFromDb is not null)
             {
-                return setFromDb.Id;
+                return entityFromDb.Id;
             }
 
-            var set = new Set
+            var entity = new TEntity
             {
                 Name = name
             };
 
-            var createdEntity = _context.Sets.Add(set).Entity;
+            var createdEntity = _context.Set<TEntity>().Add(entity).Entity;
             await _context.SaveChangesAsync();
 
             return createdEntity.Id;
@@ -41,14 +44,14 @@
 
         public async Task DeleteAsync(string id)
         {
-            this.ThrowIfEmptyCollection(_context.Sets);
+            this.ThrowIfEmptyCollection(_context.Set<TEntity>());
 
-            var setFromDb = await _context.Sets
+            var entityFromDb = await _context.Set<TEntity>()
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-            this.ThrowIfIncorrectId(setFromDb, id);
+            this.ThrowIfIncorrectId(entityFromDb, id);
 
-            _context.Sets.Remove(setFromDb);
+            _context.Set<TEntity>().Remove(entityFromDb);
             await _context.SaveChangesAsync();
         }
 
@@ -56,13 +59,13 @@
         {
             this.ThrowIfNullOrEmpty(name);
 
-            var setFromDb = await _context.Sets
+            var entityFromDb = await _context.Set<TEntity>()
                 .FirstOrDefaultAsync(x => x.Id == id);
-            this.ThrowIfIncorrectId(setFromDb, id);
+            this.ThrowIfIncorrectId(entityFromDb, id);
 
-            setFromDb.Name = name;
+            entityFromDb.Name = name;
 
-            _context.Sets.Update(setFromDb);
+            _context.Set<TEntity>().Update(entityFromDb);
             await _context.SaveChangesAsync();
         }
     }

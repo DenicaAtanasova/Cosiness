@@ -2,7 +2,7 @@
 {
     using Common;
 
-    public class Category : BaseNamedEntity<string>
+    public class Category : BaseNameOnlyEntity<string>
     {
     }
 }

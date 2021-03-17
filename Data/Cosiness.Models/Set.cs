@@ -4,7 +4,7 @@
 
     using System.Collections.Generic;
 
-    public class Set : BaseNamedEntity<string>
+    public class Set : BaseNameOnlyEntity<string>
     {
         public Set()
         {
