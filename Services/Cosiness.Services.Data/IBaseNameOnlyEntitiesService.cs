@@ -6,7 +6,7 @@
     public interface IBaseNameOnlyEntitiesService<TEntity>
         where TEntity : IBaseNameOnlyEntity<string>, new()
     {
-        Task<string> CreateAsync(string name);
+        Task<string> GetIdByNameAsync(string name);
 
         Task UpdateAsync(string id, string name);
 

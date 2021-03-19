@@ -44,11 +44,11 @@
         }
 
         [Fact]
-        public async Task Create_ShouldWorkCorrectly()
+        public async Task GetIdByNameAsync_ShouldWorkCorrectly()
         {
             var entityName = "Galaxy";
 
-            var createdEntityId = await _entitiesService.CreateAsync(entityName);
+            var createdEntityId = await _entitiesService.GetIdByNameAsync(entityName);
             var entityFromDb = await _context.Set<TEntity>()
                 .FirstOrDefaultAsync(x => x.Name == entityName);
 
@@ -63,10 +63,10 @@
         [Theory]
         [InlineData(null)]
         [InlineData("")]
-        public async Task Create_ShouldThrowWhenNameNullOrEmpty(string name)
+        public async Task GetIdByNameAsync_ShouldThrowWhenNameNullOrEmpty(string name)
         {
             var exception = await Assert.ThrowsAsync<ArgumentException>(
-                 async () => await _entitiesService.CreateAsync(name));
+                 async () => await _entitiesService.GetIdByNameAsync(name));
             var expectedMessage = string.Format(InvalidParameterMessage, _entitiesService.GetType().Name);
 
             Assert.Equal(expectedMessage, exception.Message);
@@ -74,7 +74,7 @@
 
 
         [Fact]
-        public async Task Update_ShouldWorkCorrectly()
+        public async Task UpdateAsync_ShouldWorkCorrectly()
         {
             var updatedEntityName = "Updated";
             await _entitiesService.UpdateAsync(_entityId, updatedEntityName);
@@ -85,7 +85,7 @@
         }
 
         [Fact]
-        public async Task Update_ShouldThrowWhenIncorrectId()
+        public async Task UpdateAsync_ShouldThrowWhenIncorrectId()
         {
             var incorrectId = Guid.NewGuid().ToString();
             var updatedEntityName = "Incorrect Id";
@@ -98,7 +98,7 @@
         }
 
         [Fact]
-        public async Task Delete_ShouldWorkCorrectly()
+        public async Task DeleteAsync_ShouldWorkCorrectly()
         {
             Assert.NotEmpty(_context.Set<TEntity>());
 
@@ -107,7 +107,7 @@
         }
 
         [Fact]
-        public async Task Delete_ShouldThrowWhenEmprtyCollection()
+        public async Task DeleteAsync_ShouldThrowWhenEmprtyCollection()
         {
             await _entitiesService.DeleteAsync(_entityId);
 
@@ -119,7 +119,7 @@
         }
 
         [Fact]
-        public async Task Delete_ShouldThrowWhenIncorrectId()
+        public async Task DeleteAsync_ShouldThrowWhenIncorrectId()
         {
             var incorrectId = Guid.NewGuid().ToString();
             var exception = await Assert.ThrowsAsync<ArgumentException>(

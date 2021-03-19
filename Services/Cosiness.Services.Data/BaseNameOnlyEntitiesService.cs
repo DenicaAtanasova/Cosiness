@@ -19,7 +19,7 @@
             _context = context;
         }
          
-        public async Task<string> CreateAsync(string name)
+        public async Task<string> GetIdByNameAsync(string name)
         {
             this.ThrowIfNullOrEmpty(name);
 
@@ -31,15 +31,7 @@
                 return entityFromDb.Id;
             }
 
-            var entity = new TEntity
-            {
-                Name = name
-            };
-
-            var createdEntity = _context.Set<TEntity>().Add(entity).Entity;
-            await _context.SaveChangesAsync();
-
-            return createdEntity.Id;
+            return await this.CreateAsync(name);
         }
 
         public async Task DeleteAsync(string id)
@@ -67,6 +59,19 @@
 
             _context.Set<TEntity>().Update(entityFromDb);
             await _context.SaveChangesAsync();
+        }
+
+        private async Task<string> CreateAsync(string name)
+        {
+            var entity = new TEntity
+            {
+                Name = name
+            };
+
+            var createdEntity = _context.Set<TEntity>().Add(entity).Entity;
+            await _context.SaveChangesAsync();
+
+            return createdEntity.Id;
         }
     }
 }
