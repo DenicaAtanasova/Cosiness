@@ -33,14 +33,8 @@
             _entitiesService = new BaseNameOnlyEntitiesService<TEntity>(_context);
 
             _entityId = Guid.NewGuid().ToString();
-            _context.Set<TEntity>().Add(
-                new TEntity
-                {
-                    Id = _entityId,
-                    Name = "Initial"
-                });
 
-            _context.SaveChanges();
+            this.SeedData();
         }
 
         [Fact]
@@ -127,6 +121,19 @@
             var expectedMessage = string.Format(IncorrectIdMessage, _entitiesService.GetType().Name, incorrectId);
 
             Assert.Equal(string.Format(expectedMessage, incorrectId), exception.Message);
+        }
+
+        private void SeedData()
+        {
+
+            _context.Set<TEntity>().Add(
+                new TEntity
+                {
+                    Id = _entityId,
+                    Name = "Initial"
+                });
+
+            _context.SaveChanges();
         }
     }
 
