@@ -7,6 +7,8 @@
     {
         public AddressType AddresType { get; set; }
 
+        public string TownId { get; set; }
+
         public Town Town{ get; set; }
 
         public string Street { get; set; }
