@@ -14,11 +14,11 @@
             }
         }
 
-        public static void ThrowIfIncorrectId(this IValidator service, object entity, string id)
+        public static void ThrowIfIncorrectId(this IValidator service, object entity)
         {
             if (entity is null)
             {
-                throw new ArgumentException($"{service.GetType().Name} - Incorrect id: {id}!");
+                throw new ArgumentException($"{service.GetType().Name} - Incorrect id!");
             }
         }
 

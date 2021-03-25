@@ -43,7 +43,7 @@
             var addressFromDb = await _context.Addresses
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-            this.ThrowIfIncorrectId(addressFromDb, id);
+            this.ThrowIfIncorrectId(addressFromDb);
 
             _context.Addresses.Remove(addressFromDb);
             await _context.SaveChangesAsync();
@@ -54,7 +54,7 @@
             var address = await _context.Addresses
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-            this.ThrowIfIncorrectId(address, id);
+            this.ThrowIfIncorrectId(address);
             _context.Entry(address).State = EntityState.Detached;
 
             address = inputModel.Map<AddressInputModel, Address>();

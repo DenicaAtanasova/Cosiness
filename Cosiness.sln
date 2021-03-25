@@ -21,9 +21,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5C7D0084
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosiness.Servies.Data.Tests", "Tests\Cosiness.Servies.Data.Tests\Cosiness.Servies.Data.Tests.csproj", "{EC79506F-8525-43BF-B9E8-3BA17221ABF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosiness.Services.Mapping", "Services\Cosiness.Services.Mapping\Cosiness.Services.Mapping.csproj", "{C84C56C9-8E54-4E14-B1A0-5936F05EF1BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosiness.Services.Mapping", "Services\Cosiness.Services.Mapping\Cosiness.Services.Mapping.csproj", "{C84C56C9-8E54-4E14-B1A0-5936F05EF1BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosiness.Web.InputModels", "Web\Cosiness.Web.InputModels\Cosiness.Web.InputModels.csproj", "{0488C79E-DCE1-4279-8DF3-238B9C745FAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosiness.Web.InputModels", "Web\Cosiness.Web.InputModels\Cosiness.Web.InputModels.csproj", "{0488C79E-DCE1-4279-8DF3-238B9C745FAE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

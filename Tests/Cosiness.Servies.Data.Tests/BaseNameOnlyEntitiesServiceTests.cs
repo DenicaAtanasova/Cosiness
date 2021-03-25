@@ -4,7 +4,7 @@
     using Cosiness.Models;
     using Cosiness.Models.Common;
     using Cosiness.Services.Data;
-
+    using Cosiness.Servies.Data.Tests.Common;
     using Microsoft.EntityFrameworkCore;
 
     using System;
@@ -17,11 +17,8 @@
     {
         private readonly CosinessDbContext _context;
         private readonly IBaseNameOnlyEntitiesService<TEntity> _entitiesService;
-        private readonly string _entityId;
 
-        private readonly string IncorrectIdMessage = "{0} - Incorrect id: {1}!";
-        private readonly string InvalidParameterMessage = "{0} - Parameter cannot be null or empty!";
-        private readonly string EmptyCollectionMessage = "{0} - Collection is empty!";
+        private readonly string _entityId;
 
         protected BaseNameOnlyEntitiesServiceTests()
         {
@@ -61,7 +58,7 @@
         {
             var exception = await Assert.ThrowsAsync<ArgumentException>(
                  async () => await _entitiesService.GetIdByNameAsync(name));
-            var expectedMessage = string.Format(InvalidParameterMessage, _entitiesService.GetType().Name);
+            var expectedMessage = ErrorMessage.GetInvalidParameterMessage(_entitiesService.GetType().Name);
 
             Assert.Equal(expectedMessage, exception.Message);
         }
@@ -86,7 +83,7 @@
 
             var exception = await Assert.ThrowsAsync<ArgumentException>(
                 async () => await _entitiesService.UpdateAsync(incorrectId, updatedEntityName));
-            var expectedMessage = string.Format(IncorrectIdMessage, _entitiesService.GetType().Name, incorrectId);
+            var expectedMessage = ErrorMessage.GetIncorrectIdMessage(_entitiesService.GetType().Name);
 
             Assert.Equal(string.Format(expectedMessage, incorrectId), exception.Message);
         }
@@ -107,7 +104,7 @@
 
             var exception = await Assert.ThrowsAsync<InvalidOperationException>(
                 async () => await _entitiesService.DeleteAsync(_entityId));
-            var epectedMessage = string.Format(EmptyCollectionMessage, _entitiesService.GetType().Name);
+            var epectedMessage = ErrorMessage.GetEmptyCollectionMessage(_entitiesService.GetType().Name);
 
             Assert.Equal(epectedMessage, exception.Message);
         }
@@ -118,7 +115,7 @@
             var incorrectId = Guid.NewGuid().ToString();
             var exception = await Assert.ThrowsAsync<ArgumentException>(
                 async () => await _entitiesService.DeleteAsync(incorrectId));
-            var expectedMessage = string.Format(IncorrectIdMessage, _entitiesService.GetType().Name, incorrectId);
+            var expectedMessage = ErrorMessage.GetIncorrectIdMessage(_entitiesService.GetType().Name);
 
             Assert.Equal(string.Format(expectedMessage, incorrectId), exception.Message);
         }
@@ -142,4 +139,5 @@
     public class MaterialsServiceTests : BaseNameOnlyEntitiesServiceTests<Material> { }
     public class TownsServiceTests : BaseNameOnlyEntitiesServiceTests<Town> { }
     public class ColorsServiceTests : BaseNameOnlyEntitiesServiceTests<Color> { }
+    public class DimensionServiceTests : BaseNameOnlyEntitiesServiceTests<Dimension> { }
 }

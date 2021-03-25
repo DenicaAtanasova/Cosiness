@@ -41,7 +41,7 @@
             var entityFromDb = await _context.Set<TEntity>()
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-            this.ThrowIfIncorrectId(entityFromDb, id);
+            this.ThrowIfIncorrectId(entityFromDb);
 
             _context.Set<TEntity>().Remove(entityFromDb);
             await _context.SaveChangesAsync();
@@ -53,7 +53,7 @@
 
             var entityFromDb = await _context.Set<TEntity>()
                 .FirstOrDefaultAsync(x => x.Id == id);
-            this.ThrowIfIncorrectId(entityFromDb, id);
+            this.ThrowIfIncorrectId(entityFromDb);
 
             entityFromDb.Name = name;
 

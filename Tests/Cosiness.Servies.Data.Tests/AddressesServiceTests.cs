@@ -5,6 +5,7 @@
     using Cosiness.Models.Enums;
     using Cosiness.Services.Data;
     using Cosiness.Services.Mapping;
+    using Cosiness.Servies.Data.Tests.Common;
     using Cosiness.Web.InputModels.Addresses;
 
     using Microsoft.EntityFrameworkCore;
@@ -24,11 +25,7 @@
 
         private string _townId;
         private string _townName = "Sofia";
-
         private string _addressId;
-
-        private readonly string IncorrectIdMessage = "{0} - Incorrect id: {1}!";
-        private readonly string EmptyCollectionMessage = "{0} - Collection is empty!";
 
         public AddressesServiceTests()
         {
@@ -37,6 +34,7 @@
                 .Options;
             _context = new CosinessDbContext(options);
 
+            _townId = "Sofia";
             this.SeedData();
 
             var townsService = new Mock<IBaseNameOnlyEntitiesService<Town>>();
@@ -99,7 +97,7 @@
 
             var exception = await Assert.ThrowsAsync<ArgumentException>(
                 async () => await _addressesService.UpdateAsync(incorrectId, address));
-            var expectedMessage = string.Format(IncorrectIdMessage, _addressesService.GetType().Name, incorrectId);
+            var expectedMessage = ErrorMessage.GetIncorrectIdMessage(_addressesService.GetType().Name);
 
             Assert.Equal(expectedMessage, exception.Message);
         }
@@ -121,7 +119,7 @@
 
             var exception = await Assert.ThrowsAsync<InvalidOperationException>(
                 async () => await _addressesService.DeleteAsync(_addressId));
-            var epectedMessage = string.Format(EmptyCollectionMessage, _addressesService.GetType().Name);
+            var epectedMessage = ErrorMessage.GetEmptyCollectionMessage(_addressesService.GetType().Name);
 
             Assert.Equal(epectedMessage, exception.Message);
         }
@@ -133,7 +131,7 @@
 
             var exception = await Assert.ThrowsAsync<ArgumentException>(
                 async () => await _addressesService.DeleteAsync(incorrectId));
-            var expectedMessage = string.Format(IncorrectIdMessage, _addressesService.GetType().Name, incorrectId);
+            var expectedMessage = ErrorMessage.GetIncorrectIdMessage(_addressesService.GetType().Name);
 
             Assert.Equal(string.Format(expectedMessage, incorrectId), exception.Message);
         }
