@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cosiness.Data.Migrations
 {
     [DbContext(typeof(CosinessDbContext))]
-    [Migration("20210310113221_InitialCreate")]
+    [Migration("20210325134229_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,21 +20,6 @@ namespace Cosiness.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.3")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("CharacteristicColor", b =>
-                {
-                    b.Property<string>("CharacteristicsId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ColorsId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("CharacteristicsId", "ColorsId");
-
-                    b.HasIndex("ColorsId");
-
-                    b.ToTable("CharacteristicColor");
-                });
 
             modelBuilder.Entity("Cosiness.Models.Address", b =>
                 {
@@ -78,32 +63,6 @@ namespace Cosiness.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("Cosiness.Models.Characteristic", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Dimension")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MaterialId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ProductId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MaterialId");
-
-                    b.HasIndex("ProductId")
-                        .IsUnique()
-                        .HasFilter("[ProductId] IS NOT NULL");
-
-                    b.ToTable("Characteristics");
                 });
 
             modelBuilder.Entity("Cosiness.Models.Color", b =>
@@ -210,6 +169,20 @@ namespace Cosiness.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Cosiness.Models.Dimension", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Dimensions");
                 });
 
             modelBuilder.Entity("Cosiness.Models.Image", b =>
@@ -339,6 +312,9 @@ namespace Cosiness.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("DimensionsId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
@@ -352,9 +328,41 @@ namespace Cosiness.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("DimensionsId");
+
                     b.HasIndex("SetId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Cosiness.Models.ProductColor", b =>
+                {
+                    b.Property<string>("ProductId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ColorId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ProductId", "ColorId");
+
+                    b.HasIndex("ColorId");
+
+                    b.ToTable("ProductsColors");
+                });
+
+            modelBuilder.Entity("Cosiness.Models.ProductMaterial", b =>
+                {
+                    b.Property<string>("productId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("MaterialId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("productId", "MaterialId");
+
+                    b.HasIndex("MaterialId");
+
+                    b.ToTable("ProductsMaterials");
                 });
 
             modelBuilder.Entity("Cosiness.Models.Review", b =>
@@ -558,21 +566,6 @@ namespace Cosiness.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("CharacteristicColor", b =>
-                {
-                    b.HasOne("Cosiness.Models.Characteristic", null)
-                        .WithMany()
-                        .HasForeignKey("CharacteristicsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Cosiness.Models.Color", null)
-                        .WithMany()
-                        .HasForeignKey("ColorsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Cosiness.Models.Address", b =>
                 {
                     b.HasOne("Cosiness.Models.CosinessUser", null)
@@ -584,21 +577,6 @@ namespace Cosiness.Data.Migrations
                         .HasForeignKey("TownId");
 
                     b.Navigation("Town");
-                });
-
-            modelBuilder.Entity("Cosiness.Models.Characteristic", b =>
-                {
-                    b.HasOne("Cosiness.Models.Material", "Material")
-                        .WithMany("Characteristics")
-                        .HasForeignKey("MaterialId");
-
-                    b.HasOne("Cosiness.Models.Product", "Product")
-                        .WithOne("Characteristic")
-                        .HasForeignKey("Cosiness.Models.Characteristic", "ProductId");
-
-                    b.Navigation("Material");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Cosiness.Models.Image", b =>
@@ -656,13 +634,57 @@ namespace Cosiness.Data.Migrations
                         .WithMany()
                         .HasForeignKey("CategoryId");
 
+                    b.HasOne("Cosiness.Models.Dimension", "Dimensions")
+                        .WithMany()
+                        .HasForeignKey("DimensionsId");
+
                     b.HasOne("Cosiness.Models.Set", "Set")
                         .WithMany("Products")
                         .HasForeignKey("SetId");
 
                     b.Navigation("Category");
 
+                    b.Navigation("Dimensions");
+
                     b.Navigation("Set");
+                });
+
+            modelBuilder.Entity("Cosiness.Models.ProductColor", b =>
+                {
+                    b.HasOne("Cosiness.Models.Color", "Color")
+                        .WithMany()
+                        .HasForeignKey("ColorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Cosiness.Models.Product", "Product")
+                        .WithMany("Colors")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Color");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Cosiness.Models.ProductMaterial", b =>
+                {
+                    b.HasOne("Cosiness.Models.Material", "Material")
+                        .WithMany()
+                        .HasForeignKey("MaterialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Cosiness.Models.Product", "Product")
+                        .WithMany("Materials")
+                        .HasForeignKey("productId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Material");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Cosiness.Models.Review", b =>
@@ -770,11 +792,6 @@ namespace Cosiness.Data.Migrations
                     b.Navigation("ShoppingCart");
                 });
 
-            modelBuilder.Entity("Cosiness.Models.Material", b =>
-                {
-                    b.Navigation("Characteristics");
-                });
-
             modelBuilder.Entity("Cosiness.Models.Order", b =>
                 {
                     b.Navigation("Products");
@@ -782,9 +799,11 @@ namespace Cosiness.Data.Migrations
 
             modelBuilder.Entity("Cosiness.Models.Product", b =>
                 {
-                    b.Navigation("Characteristic");
+                    b.Navigation("Colors");
 
                     b.Navigation("Image");
+
+                    b.Navigation("Materials");
 
                     b.Navigation("Orders");
 

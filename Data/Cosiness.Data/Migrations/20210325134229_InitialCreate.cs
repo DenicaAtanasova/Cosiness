@@ -71,6 +71,18 @@ namespace Cosiness.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Dimensions",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Dimensions", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Materials",
                 columns: table => new
                 {
@@ -240,6 +252,7 @@ namespace Cosiness.Data.Migrations
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CategoryId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     SetId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    DimensionsId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
@@ -249,6 +262,12 @@ namespace Cosiness.Data.Migrations
                         name: "FK_Products_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Products_Dimensions_DimensionsId",
+                        column: x => x.DimensionsId,
+                        principalTable: "Dimensions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -288,32 +307,6 @@ namespace Cosiness.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Characteristics",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    MaterialId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Dimension = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProductId = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Characteristics", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Characteristics_Materials_MaterialId",
-                        column: x => x.MaterialId,
-                        principalTable: "Materials",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Characteristics_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Image",
                 columns: table => new
                 {
@@ -331,6 +324,54 @@ namespace Cosiness.Data.Migrations
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductsColors",
+                columns: table => new
+                {
+                    ProductId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ColorId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductsColors", x => new { x.ProductId, x.ColorId });
+                    table.ForeignKey(
+                        name: "FK_ProductsColors_Colors_ColorId",
+                        column: x => x.ColorId,
+                        principalTable: "Colors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProductsColors_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductsMaterials",
+                columns: table => new
+                {
+                    productId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    MaterialId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductsMaterials", x => new { x.productId, x.MaterialId });
+                    table.ForeignKey(
+                        name: "FK_ProductsMaterials_Materials_MaterialId",
+                        column: x => x.MaterialId,
+                        principalTable: "Materials",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProductsMaterials_Products_productId",
+                        column: x => x.productId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -430,30 +471,6 @@ namespace Cosiness.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CharacteristicColor",
-                columns: table => new
-                {
-                    CharacteristicsId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ColorsId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CharacteristicColor", x => new { x.CharacteristicsId, x.ColorsId });
-                    table.ForeignKey(
-                        name: "FK_CharacteristicColor_Characteristics_CharacteristicsId",
-                        column: x => x.CharacteristicsId,
-                        principalTable: "Characteristics",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CharacteristicColor_Colors_ColorsId",
-                        column: x => x.ColorsId,
-                        principalTable: "Colors",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "OrdersProducrts",
                 columns: table => new
                 {
@@ -528,23 +545,6 @@ namespace Cosiness.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CharacteristicColor_ColorsId",
-                table: "CharacteristicColor",
-                column: "ColorsId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Characteristics_MaterialId",
-                table: "Characteristics",
-                column: "MaterialId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Characteristics_ProductId",
-                table: "Characteristics",
-                column: "ProductId",
-                unique: true,
-                filter: "[ProductId] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Image_ProductId",
                 table: "Image",
                 column: "ProductId",
@@ -577,9 +577,24 @@ namespace Cosiness.Data.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Products_DimensionsId",
+                table: "Products",
+                column: "DimensionsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Products_SetId",
                 table: "Products",
                 column: "SetId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductsColors_ColorId",
+                table: "ProductsColors",
+                column: "ColorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductsMaterials_MaterialId",
+                table: "ProductsMaterials",
+                column: "MaterialId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reviews_CreatorId",
@@ -622,13 +637,16 @@ namespace Cosiness.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "CharacteristicColor");
-
-            migrationBuilder.DropTable(
                 name: "Image");
 
             migrationBuilder.DropTable(
                 name: "OrdersProducrts");
+
+            migrationBuilder.DropTable(
+                name: "ProductsColors");
+
+            migrationBuilder.DropTable(
+                name: "ProductsMaterials");
 
             migrationBuilder.DropTable(
                 name: "Reviews");
@@ -640,16 +658,10 @@ namespace Cosiness.Data.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Characteristics");
-
-            migrationBuilder.DropTable(
-                name: "Colors");
-
-            migrationBuilder.DropTable(
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "ShoppingCarts");
+                name: "Colors");
 
             migrationBuilder.DropTable(
                 name: "Materials");
@@ -658,10 +670,16 @@ namespace Cosiness.Data.Migrations
                 name: "Products");
 
             migrationBuilder.DropTable(
+                name: "ShoppingCarts");
+
+            migrationBuilder.DropTable(
                 name: "Addresses");
 
             migrationBuilder.DropTable(
                 name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Dimensions");
 
             migrationBuilder.DropTable(
                 name: "Sets");

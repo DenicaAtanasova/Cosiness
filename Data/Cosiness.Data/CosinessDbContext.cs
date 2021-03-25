@@ -27,13 +27,17 @@
 
         public DbSet<Town> Towns { get; set; }
 
-        public DbSet<Characteristic> Characteristics { get; set; }
-
         public DbSet<Set> Sets { get; set; }
 
         public DbSet<Color> Colors { get; set; }
 
+        public DbSet<ProductColor> ProductsColors { get; set; }
+
+        public DbSet<ProductMaterial> ProductsMaterials { get; set; }
+
         public DbSet<Material> Materials { get; set; }
+
+        public DbSet<Dimension> Dimensions { get; set; }
 
         public DbSet<Category> Categories { get; set; }
 
@@ -46,6 +50,12 @@
 
             builder.Entity<ShoppingCartProduct>()
                 .HasKey(scp => new { scp.ShoppingCartId, scp.ProductId });
+
+            builder.Entity<ProductColor>()
+                .HasKey(pc => new { pc.ProductId, pc.ColorId });
+
+            builder.Entity<ProductMaterial>()
+                .HasKey(pm => new { pm.productId, pm.MaterialId});
 
             base.OnModelCreating(builder);
         }
