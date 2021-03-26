@@ -12,22 +12,22 @@
 
     using Xunit;
 
-    public abstract class BaseNameOnlyEntitiesServiceTests<TEntity>
+    public abstract class BaseNameOnlyEntityServiceTests<TEntity>
         where TEntity : BaseNameOnlyEntity<string>, new()
     {
         private readonly CosinessDbContext _context;
-        private readonly IBaseNameOnlyEntitiesService<TEntity> _entitiesService;
+        private readonly IBaseNameOnlyEntityService<TEntity> _entitiesService;
 
         private readonly string _entityId;
 
-        protected BaseNameOnlyEntitiesServiceTests()
+        protected BaseNameOnlyEntityServiceTests()
         {
             var options = new DbContextOptionsBuilder<CosinessDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
             _context = new CosinessDbContext(options);
 
-            _entitiesService = new BaseNameOnlyEntitiesService<TEntity>(_context);
+            _entitiesService = new BaseNameOnlyEntityService<TEntity>(_context);
 
             _entityId = Guid.NewGuid().ToString();
 
@@ -134,10 +134,10 @@
         }
     }
 
-    public class SetsServiceTests : BaseNameOnlyEntitiesServiceTests<Set> { }
-    public class CategoriesServiceTests : BaseNameOnlyEntitiesServiceTests<Category> { }
-    public class MaterialsServiceTests : BaseNameOnlyEntitiesServiceTests<Material> { }
-    public class TownsServiceTests : BaseNameOnlyEntitiesServiceTests<Town> { }
-    public class ColorsServiceTests : BaseNameOnlyEntitiesServiceTests<Color> { }
-    public class DimensionServiceTests : BaseNameOnlyEntitiesServiceTests<Dimension> { }
+    public class SetsServiceTests : BaseNameOnlyEntityServiceTests<Set> { }
+    public class CategoriesServiceTests : BaseNameOnlyEntityServiceTests<Category> { }
+    public class MaterialsServiceTests : BaseNameOnlyEntityServiceTests<Material> { }
+    public class TownsServiceTests : BaseNameOnlyEntityServiceTests<Town> { }
+    public class ColorsServiceTests : BaseNameOnlyEntityServiceTests<Color> { }
+    public class DimensionServiceTests : BaseNameOnlyEntityServiceTests<Dimension> { }
 }

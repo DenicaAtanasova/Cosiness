@@ -9,12 +9,12 @@
     using System;
     using System.Threading.Tasks;
 
-    public class BaseNameOnlyEntitiesService<TEntity> 
-        : IBaseNameOnlyEntitiesService<TEntity>, IValidator
+    public class BaseNameOnlyEntityService<TEntity> 
+        : IBaseNameOnlyEntityService<TEntity>, IValidator
         where TEntity : BaseNameOnlyEntity<string>, new()
     {
         private readonly CosinessDbContext _context;
-        public BaseNameOnlyEntitiesService(CosinessDbContext context)
+        public BaseNameOnlyEntityService(CosinessDbContext context)
         {
             _context = context;
         }

@@ -3,7 +3,7 @@
     using Cosiness.Web.InputModels.Addresses;
     using System.Threading.Tasks;
 
-    public interface IAddressesService
+    public interface IAddressService
     {
         Task<string> CreateAsync(AddressInputModel inputModel);
 

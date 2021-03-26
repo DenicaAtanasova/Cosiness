@@ -18,16 +18,16 @@
 
     using Xunit;
 
-    public class AddressesServiceTests
+    public class AddressServiceTests
     {
         private readonly CosinessDbContext _context;
-        private readonly IAddressesService _addressesService;
+        private readonly IAddressService _addressesService;
 
         private string _townId;
         private string _townName = "Sofia";
         private string _addressId;
 
-        public AddressesServiceTests()
+        public AddressServiceTests()
         {
             var options = new DbContextOptionsBuilder<CosinessDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
@@ -37,11 +37,11 @@
             _townId = "Sofia";
             this.SeedData();
 
-            var townsService = new Mock<IBaseNameOnlyEntitiesService<Town>>();
+            var townsService = new Mock<IBaseNameOnlyEntityService<Town>>();
             townsService.Setup(x => x.GetIdByNameAsync(_townName))
                 .ReturnsAsync(_townId);
 
-            _addressesService = new AddressesService(_context, townsService.Object);
+            _addressesService = new AddressService(_context, townsService.Object);
 
             AutoMapperConfig.RegisterMappings(
                 typeof(AddressInputModel).GetTypeInfo().Assembly);

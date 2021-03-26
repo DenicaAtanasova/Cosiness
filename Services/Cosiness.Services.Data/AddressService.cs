@@ -10,14 +10,14 @@
 
     using System.Threading.Tasks;
 
-    public class AddressesService : IAddressesService, IValidator
+    public class AddressService : IAddressService, IValidator
     {
         private readonly CosinessDbContext _context;
-        private readonly IBaseNameOnlyEntitiesService<Town> _townsService;
+        private readonly IBaseNameOnlyEntityService<Town> _townsService;
 
-        public AddressesService(
+        public AddressService(
             CosinessDbContext context,
-            IBaseNameOnlyEntitiesService<Town> townsService)
+            IBaseNameOnlyEntityService<Town> townsService)
         {
             _context = context;
             _townsService = townsService;

@@ -3,7 +3,7 @@
     using Cosiness.Models.Common;
     using System.Threading.Tasks;
 
-    public interface IBaseNameOnlyEntitiesService<TEntity>
+    public interface IBaseNameOnlyEntityService<TEntity>
         where TEntity : IBaseNameOnlyEntity<string>, new()
     {
         Task<string> GetIdByNameAsync(string name);
