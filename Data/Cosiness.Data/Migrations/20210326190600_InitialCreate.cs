@@ -252,7 +252,7 @@ namespace Cosiness.Data.Migrations
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CategoryId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     SetId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    DimensionsId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    DimensionId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
@@ -265,8 +265,8 @@ namespace Cosiness.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Products_Dimensions_DimensionsId",
-                        column: x => x.DimensionsId,
+                        name: "FK_Products_Dimensions_DimensionId",
+                        column: x => x.DimensionId,
                         principalTable: "Dimensions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -307,7 +307,7 @@ namespace Cosiness.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Image",
+                name: "Images",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -317,9 +317,9 @@ namespace Cosiness.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Image", x => x.Id);
+                    table.PrimaryKey("PK_Images", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Image_Products_ProductId",
+                        name: "FK_Images_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
@@ -545,8 +545,8 @@ namespace Cosiness.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Image_ProductId",
-                table: "Image",
+                name: "IX_Images_ProductId",
+                table: "Images",
                 column: "ProductId",
                 unique: true,
                 filter: "[ProductId] IS NOT NULL");
@@ -577,9 +577,9 @@ namespace Cosiness.Data.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_DimensionsId",
+                name: "IX_Products_DimensionId",
                 table: "Products",
-                column: "DimensionsId");
+                column: "DimensionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_SetId",
@@ -637,7 +637,7 @@ namespace Cosiness.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Image");
+                name: "Images");
 
             migrationBuilder.DropTable(
                 name: "OrdersProducrts");

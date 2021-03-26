@@ -16,7 +16,7 @@ namespace Cosiness.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.3")
+                .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Cosiness.Models.Address", b =>
@@ -204,7 +204,7 @@ namespace Cosiness.Data.Migrations
                         .IsUnique()
                         .HasFilter("[ProductId] IS NOT NULL");
 
-                    b.ToTable("Image");
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("Cosiness.Models.Material", b =>
@@ -310,7 +310,7 @@ namespace Cosiness.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DimensionsId")
+                    b.Property<string>("DimensionId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal>("Price")
@@ -326,7 +326,7 @@ namespace Cosiness.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("DimensionsId");
+                    b.HasIndex("DimensionId");
 
                     b.HasIndex("SetId");
 
@@ -634,7 +634,7 @@ namespace Cosiness.Data.Migrations
 
                     b.HasOne("Cosiness.Models.Dimension", "Dimensions")
                         .WithMany()
-                        .HasForeignKey("DimensionsId");
+                        .HasForeignKey("DimensionId");
 
                     b.HasOne("Cosiness.Models.Set", "Set")
                         .WithMany("Products")
