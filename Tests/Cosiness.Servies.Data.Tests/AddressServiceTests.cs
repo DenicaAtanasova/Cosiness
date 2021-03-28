@@ -34,7 +34,6 @@
                 .Options;
             _context = new CosinessDbContext(options);
 
-            _townId = "Sofia";
             this.SeedData();
 
             var townsService = new Mock<IBaseNameOnlyEntityService<Town>>();
@@ -62,7 +61,10 @@
             var addressFromDb = await _context.Addresses
                 .FirstOrDefaultAsync(x => x.Id == createdAddressId);
 
-            Assert.Equal(addressFromDb.Id, createdAddressId);
+            Assert.Equal(address.Town.Name, addressFromDb.Town.Name);
+            Assert.Equal(address.Street, addressFromDb.Street);
+            Assert.Equal(address.AddressType, addressFromDb.AddresType.ToString());
+            Assert.Equal(address.BuildingNumber, addressFromDb.BuildingNumber);
         }
 
         [Fact]
@@ -81,6 +83,8 @@
                 .FirstOrDefaultAsync(x => x.Id == _addressId);
 
             Assert.Equal(address.Street, addressFromDb.Street);
+            Assert.Equal(address.BuildingNumber, addressFromDb.BuildingNumber);
+            Assert.Equal(address.AddressType, addressFromDb.AddresType.ToString());
         }
 
         [Fact]

@@ -55,6 +55,7 @@
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             this.ThrowIfIncorrectId(address);
+
             _context.Entry(address).State = EntityState.Detached;
 
             address = inputModel.Map<AddressInputModel, Address>();
