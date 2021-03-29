@@ -77,6 +77,62 @@
 
             Assert.Equal(expectedMessage, exception.Message);
         }
+        [Fact]
+        public async Task UpdateAsync_ShouldWorkCorrectly()
+        {
+            await _imageService.UpdateAsync(_imageId, _spaceImage, _fileContent);
+
+            var image = await _context.Images
+                .FirstOrDefaultAsync(x => x.Id == _imageId);
+
+            Assert.Equal(image.Caption, _spaceImage);
+            Assert.Equal(image.Url, _spaceUrl);
+        }
+
+        [Fact]
+        public async Task UpdateAsync_ShouldThrowWhenIncorrectId()
+        {
+            var exception = await Assert.ThrowsAsync<ArgumentException>(
+                async () => await _imageService.UpdateAsync(Guid.NewGuid().ToString(), _minnieImage, _fileContent));
+
+            var expectedMessage = ErrorMessage.GetIncorrectIdMessage(_imageService.GetType().Name);
+
+            Assert.Equal(expectedMessage, exception.Message);
+        }
+
+        [Fact]
+        public async Task DeleteAsync_ShouldWorkCorrectly()
+        {
+            Assert.NotEmpty(_context.Images);
+
+            await _imageService.DeleteAsync(_imageId);
+
+            Assert.Empty(_context.Images);
+        }
+
+        [Fact]
+        public async Task DeleteAsync_ShouldThrowWhenEmpryCollection()
+        {
+            await _imageService.DeleteAsync(_imageId);
+
+            var exception = await Assert.ThrowsAsync<InvalidOperationException>(
+                async () => await _imageService.DeleteAsync(_imageId));
+
+            var expectedMessage = ErrorMessage.GetEmptyCollectionMessage(_imageService.GetType().Name);
+
+            Assert.Equal(expectedMessage, exception.Message);
+        }
+
+        [Fact]
+        public async Task DeleteAsync_ShouldThrowWhenIncorrectId()
+        {
+            var exception = await Assert.ThrowsAsync<ArgumentException>(
+                async () => await _imageService.DeleteAsync(Guid.NewGuid().ToString()));
+
+            var expectedMessage = ErrorMessage.GetIncorrectIdMessage(_imageService.GetType().Name);
+
+            Assert.Equal(expectedMessage, exception.Message);
+        }
 
         private void SeedData()
         {

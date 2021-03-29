@@ -6,7 +6,7 @@
     {
         public string Url { get; set; }
 
-        public string Caption { get; set; } //Name
+        public string Caption { get; set; }
 
         public string ProductId { get; set; }
 

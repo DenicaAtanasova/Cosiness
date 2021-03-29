@@ -10,6 +10,7 @@
 * [Moq](https://github.com/moq/moq)
 * [SendGrid](https://github.com/sendgrid)
 * [LibraryManager](https://github.com/aspnet/LibraryManager)
+* [Azure Storage Blobs](https://github.com/Azure/azure-sdk-for-net/tree/Azure.Storage.Blobs_12.8.0/sdk/storage/Azure.Storage.Blobs)
 
 # License
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details

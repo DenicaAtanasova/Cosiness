@@ -85,7 +85,7 @@
                 async () => await _entitiesService.UpdateAsync(incorrectId, updatedEntityName));
             var expectedMessage = ErrorMessage.GetIncorrectIdMessage(_entitiesService.GetType().Name);
 
-            Assert.Equal(string.Format(expectedMessage, incorrectId), exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
         }
 
         [Fact]
@@ -117,7 +117,7 @@
                 async () => await _entitiesService.DeleteAsync(incorrectId));
             var expectedMessage = ErrorMessage.GetIncorrectIdMessage(_entitiesService.GetType().Name);
 
-            Assert.Equal(string.Format(expectedMessage, incorrectId), exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
         }
 
         private void SeedData()

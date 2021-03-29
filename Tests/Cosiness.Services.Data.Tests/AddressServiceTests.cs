@@ -137,7 +137,7 @@
                 async () => await _addressesService.DeleteAsync(incorrectId));
             var expectedMessage = ErrorMessage.GetIncorrectIdMessage(_addressesService.GetType().Name);
 
-            Assert.Equal(string.Format(expectedMessage, incorrectId), exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
         }
 
         private void SeedData()
