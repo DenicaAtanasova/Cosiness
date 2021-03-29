@@ -1,11 +1,11 @@
-﻿namespace Cosiness.Servies.Data.Tests
+﻿namespace Cosiness.Services.Data.Tests
 {
     using Cosiness.Data;
     using Cosiness.Models;
     using Cosiness.Models.Enums;
     using Cosiness.Services.Data;
+    using Cosiness.Services.Data.Tests.Common;
     using Cosiness.Services.Mapping;
-    using Cosiness.Servies.Data.Tests.Common;
     using Cosiness.Web.InputModels.Addresses;
 
     using Microsoft.EntityFrameworkCore;
@@ -34,7 +34,7 @@
                 .Options;
             _context = new CosinessDbContext(options);
 
-            this.SeedData();
+            SeedData();
 
             var townsService = new Mock<IBaseNameOnlyEntityService<Town>>();
             townsService.Setup(x => x.GetIdByNameAsync(_townName))
@@ -49,8 +49,8 @@
         [Fact]
         public async Task CreateAsync_ShouldWorkCorrectly()
         {
-            var address = new AddressInputModel 
-            { 
+            var address = new AddressInputModel
+            {
                 Town = new AddressTownInputModel { Name = _townName },
                 Street = "Test street",
                 AddressType = AddressType.Billing.ToString(),

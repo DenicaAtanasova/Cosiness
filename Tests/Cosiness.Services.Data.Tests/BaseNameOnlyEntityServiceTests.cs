@@ -1,10 +1,10 @@
-﻿namespace Cosiness.Servies.Data.Tests
+﻿namespace Cosiness.Services.Data.Tests
 {
     using Cosiness.Data;
     using Cosiness.Models;
     using Cosiness.Models.Common;
     using Cosiness.Services.Data;
-    using Cosiness.Servies.Data.Tests.Common;
+    using Cosiness.Services.Data.Tests.Common;
     using Microsoft.EntityFrameworkCore;
 
     using System;
@@ -31,7 +31,7 @@
 
             _entityId = Guid.NewGuid().ToString();
 
-            this.SeedData();
+            SeedData();
         }
 
         [Fact]
@@ -43,7 +43,7 @@
             var entityFromDb = await _context.Set<TEntity>()
                 .FirstOrDefaultAsync(x => x.Name == entityName);
 
-            Assert.Equal(entityFromDb.Id, createdEntityId);
+            Assert.Equal(entityFromDb.Name, entityName);
 
             var actualCount = await _context.Set<TEntity>().CountAsync();
             var expectedCount = 2;
@@ -58,7 +58,7 @@
         {
             var exception = await Assert.ThrowsAsync<ArgumentException>(
                  async () => await _entitiesService.GetIdByNameAsync(name));
-            var expectedMessage = ErrorMessage.GetInvalidParameterMessage(_entitiesService.GetType().Name);
+            var expectedMessage = ErrorMessage.GetNullOrEmptyParameterMessage(_entitiesService.GetType().Name);
 
             Assert.Equal(expectedMessage, exception.Message);
         }

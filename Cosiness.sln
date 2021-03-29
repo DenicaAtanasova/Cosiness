@@ -19,13 +19,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosiness.Services.Data", "S
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5C7D0084-EEC8-4A6E-B26A-D6F874E641AE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosiness.Servies.Data.Tests", "Tests\Cosiness.Servies.Data.Tests\Cosiness.Servies.Data.Tests.csproj", "{EC79506F-8525-43BF-B9E8-3BA17221ABF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosiness.Services.Data.Tests", "Tests\Cosiness.Services.Data.Tests\Cosiness.Services.Data.Tests.csproj", "{EC79506F-8525-43BF-B9E8-3BA17221ABF0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosiness.Services.Mapping", "Services\Cosiness.Services.Mapping\Cosiness.Services.Mapping.csproj", "{C84C56C9-8E54-4E14-B1A0-5936F05EF1BD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosiness.Web.InputModels", "Web\Cosiness.Web.InputModels\Cosiness.Web.InputModels.csproj", "{0488C79E-DCE1-4279-8DF3-238B9C745FAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosiness.Services.Storage", "Services\Cosiness.Services.Storage\Cosiness.Services.Storage.csproj", "{D0E1B9FC-6B2A-4BEF-A9A5-14EF5E8EDC38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosiness.Services.Storage", "Services\Cosiness.Services.Storage\Cosiness.Services.Storage.csproj", "{D0E1B9FC-6B2A-4BEF-A9A5-14EF5E8EDC38}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
