@@ -354,12 +354,12 @@ namespace Cosiness.Data.Migrations
                 name: "ProductsMaterials",
                 columns: table => new
                 {
-                    productId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProductId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     MaterialId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductsMaterials", x => new { x.productId, x.MaterialId });
+                    table.PrimaryKey("PK_ProductsMaterials", x => new { x.ProductId, x.MaterialId });
                     table.ForeignKey(
                         name: "FK_ProductsMaterials_Materials_MaterialId",
                         column: x => x.MaterialId,
@@ -367,8 +367,8 @@ namespace Cosiness.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProductsMaterials_Products_productId",
-                        column: x => x.productId,
+                        name: "FK_ProductsMaterials_Products_ProductId",
+                        column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);

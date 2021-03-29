@@ -57,7 +57,7 @@
                 .HasKey(pc => new { pc.ProductId, pc.ColorId });
 
             builder.Entity<ProductMaterial>()
-                .HasKey(pm => new { pm.productId, pm.MaterialId});
+                .HasKey(pm => new { pm.ProductId, pm.MaterialId});
 
             base.OnModelCreating(builder);
         }

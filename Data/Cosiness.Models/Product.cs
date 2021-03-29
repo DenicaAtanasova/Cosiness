@@ -19,11 +19,17 @@
 
         public DateTime CreatedOn { get; set; }
 
+        public string CategoryId { get; set; }
+
         public Category Category { get; set; }
+
+        public string SetId { get; set; }
 
         public Set Set { get; set; }
 
-        public Dimension Dimensions { get; set; }
+        public string DimensionId { get; set; }
+
+        public Dimension Dimension { get; set; }
 
         public Image Image { get; set; }
 

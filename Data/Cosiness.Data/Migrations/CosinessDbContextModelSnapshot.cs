@@ -350,13 +350,13 @@ namespace Cosiness.Data.Migrations
 
             modelBuilder.Entity("Cosiness.Models.ProductMaterial", b =>
                 {
-                    b.Property<string>("productId")
+                    b.Property<string>("ProductId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("MaterialId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("productId", "MaterialId");
+                    b.HasKey("ProductId", "MaterialId");
 
                     b.HasIndex("MaterialId");
 
@@ -632,7 +632,7 @@ namespace Cosiness.Data.Migrations
                         .WithMany()
                         .HasForeignKey("CategoryId");
 
-                    b.HasOne("Cosiness.Models.Dimension", "Dimensions")
+                    b.HasOne("Cosiness.Models.Dimension", "Dimension")
                         .WithMany()
                         .HasForeignKey("DimensionId");
 
@@ -642,7 +642,7 @@ namespace Cosiness.Data.Migrations
 
                     b.Navigation("Category");
 
-                    b.Navigation("Dimensions");
+                    b.Navigation("Dimension");
 
                     b.Navigation("Set");
                 });
@@ -676,7 +676,7 @@ namespace Cosiness.Data.Migrations
 
                     b.HasOne("Cosiness.Models.Product", "Product")
                         .WithMany("Materials")
-                        .HasForeignKey("productId")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
