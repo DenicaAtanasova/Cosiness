@@ -34,7 +34,7 @@
                 .Options;
             _context = new CosinessDbContext(options);
 
-            SeedData();
+            this.SeedData();
 
             var townsService = new Mock<IBaseNameOnlyEntityService<Town>>();
             townsService.Setup(x => x.GetIdByNameAsync(_townName))

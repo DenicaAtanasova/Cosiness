@@ -5,7 +5,7 @@
     using Cosiness.Services.Data;
     using Cosiness.Services.Data.Tests.Common;
     using Cosiness.Services.Storage;
-
+    using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
 
     using Moq;
@@ -30,11 +30,14 @@
         private readonly string _minnieUrl = "minnie-mouse-url";
         private readonly string _spaceUrl = "space-pillow-url";
 
-        private readonly Stream _fileContent;
+        private readonly Stream _minnieFileContent;
+        private readonly Stream _spaceFileContent;
+
+        private readonly IFormFile _minnieImageFile;
+        private readonly IFormFile _spaceImageFile;
 
         public ImageServiceTests()
         {
-            _fileContent = new MemoryStream();
             var options = new DbContextOptionsBuilder<CosinessDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
@@ -43,10 +46,26 @@
 
             SeedData();
 
+            _minnieFileContent = new MemoryStream();
+            var minnieImageMock = new Mock<IFormFile>();
+            minnieImageMock.Setup(x => x.FileName)
+                .Returns(_minnieImage);
+            minnieImageMock.Setup(x => x.OpenReadStream())
+                .Returns(_minnieFileContent);
+            _minnieImageFile = minnieImageMock.Object;
+
+            _spaceFileContent = new MemoryStream();
+            var spaceImageMock = new Mock<IFormFile>();
+            spaceImageMock.Setup(x => x.FileName)
+                .Returns(_spaceImage);
+            spaceImageMock.Setup(x => x.OpenReadStream())
+                .Returns(_spaceFileContent);
+            _spaceImageFile = spaceImageMock.Object;
+
             var storageService = new Mock<IFileStorage>();
-            storageService.Setup(x => x.UploadAsync(_minnieImage, _fileContent))
+            storageService.Setup(x => x.UploadAsync(_minnieImage, _minnieFileContent))
                 .ReturnsAsync(_minnieUrl);
-            storageService.Setup(x => x.UploadAsync(_spaceImage, _fileContent))
+            storageService.Setup(x => x.UploadAsync(_spaceImage, _spaceFileContent))
                 .ReturnsAsync(_spaceUrl);
 
             _imageService = new ImageService(_context, storageService.Object);
@@ -56,7 +75,7 @@
         public async Task CreateAsync_ShouldWorkCorrectly()
         {
             var createdImageId = await _imageService
-                .CreateAsync(_productId, _minnieImage, _fileContent);
+                .CreateAsync(_productId, _minnieImageFile);
 
             var imageFromDb = await _context.Images
                 .FirstOrDefaultAsync(x => x.Id == createdImageId);
@@ -71,16 +90,17 @@
         public async Task CreateAsync_ShouldThrowWhenProductIdNullOrEmpty(string productId)
         {
             var exception = await Assert.ThrowsAsync<ArgumentException>(
-                async () => await _imageService.CreateAsync(productId, _minnieImage, _fileContent));
+                async () => await _imageService.CreateAsync(productId, _minnieImageFile));
 
             var expectedMessage = ErrorMessage.GetNullOrEmptyParameterMessage(_imageService.GetType().Name);
 
             Assert.Equal(expectedMessage, exception.Message);
         }
+
         [Fact]
         public async Task UpdateAsync_ShouldWorkCorrectly()
         {
-            await _imageService.UpdateAsync(_imageId, _spaceImage, _fileContent);
+            await _imageService.UpdateAsync(_imageId, _spaceImageFile);
 
             var image = await _context.Images
                 .FirstOrDefaultAsync(x => x.Id == _imageId);
@@ -93,7 +113,7 @@
         public async Task UpdateAsync_ShouldThrowWhenIncorrectId()
         {
             var exception = await Assert.ThrowsAsync<ArgumentException>(
-                async () => await _imageService.UpdateAsync(Guid.NewGuid().ToString(), _minnieImage, _fileContent));
+                async () => await _imageService.UpdateAsync(Guid.NewGuid().ToString(), _minnieImageFile));
 
             var expectedMessage = ErrorMessage.GetIncorrectIdMessage(_imageService.GetType().Name);
 

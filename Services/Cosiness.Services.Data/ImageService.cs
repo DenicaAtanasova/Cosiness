@@ -4,7 +4,7 @@
     using Cosiness.Models;
     using Cosiness.Services.Data.Helpers;
     using Cosiness.Services.Storage;
-
+    using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
 
     using System.IO;
@@ -23,16 +23,16 @@
             this._blobStorageService = blobStorageService;
         }
 
-        public async Task<string> CreateAsync(string productId, string fileName, Stream fileContent)
+        public async Task<string> CreateAsync(string productId, IFormFile imageFile)
         {
             this.ThrowIfNullOrEmpty(productId);
 
             var url = await _blobStorageService
-                .UploadAsync(fileName, fileContent);
+                .UploadAsync(imageFile.FileName, imageFile.OpenReadStream());
 
             var image = new Image
             {
-                Caption = fileName,
+                Caption = imageFile.FileName,
                 Url = url,
                 ProductId = productId
             };
@@ -43,7 +43,7 @@
             return image.Id;
         }
 
-        public async Task UpdateAsync(string id, string fileName, Stream fileContent)
+        public async Task UpdateAsync(string id, IFormFile imageFile)
         {
             this.ThrowIfIncorrectId(_context.Images, id);
 
@@ -53,8 +53,8 @@
             _context.Entry(image).State = EntityState.Detached;
 
             await _blobStorageService.DeleteAsync(image.Caption);
-            image.Url = await _blobStorageService.UploadAsync(fileName, fileContent);
-            image.Caption = fileName;
+            image.Url = await _blobStorageService.UploadAsync(imageFile.FileName, imageFile.OpenReadStream());
+            image.Caption = imageFile.FileName;
 
             _context.Images.Update(image);
             await _context.SaveChangesAsync();

@@ -1,13 +1,14 @@
 ﻿namespace Cosiness.Services.Data
 {
-    using System.IO;
+    using Microsoft.AspNetCore.Http;
+
     using System.Threading.Tasks;
 
     public interface IImageService
     {
-        Task<string> CreateAsync(string productId, string fileName, Stream fileContent);
+        Task<string> CreateAsync(string productId, IFormFile imageFile);
 
-        Task UpdateAsync(string id, string fileName, Stream fileContent);
+        Task UpdateAsync(string id, IFormFile imageFile);
 
         Task DeleteAsync(string id);
     }
