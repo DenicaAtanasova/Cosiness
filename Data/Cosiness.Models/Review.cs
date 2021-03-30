@@ -7,11 +7,15 @@
     {
         public DateTime CreatedOn { get; set; }
 
-        public int Raiting { get; set; }
+        public int Rating { get; set; }
 
         public string Comment { get; set; }
 
+        public string CreatorId { get; set; }
+
         public CosinessUser Creator { get; set; }
+
+        public string ProductId { get; set; }
 
         public Product Product { get; set; }
     }
