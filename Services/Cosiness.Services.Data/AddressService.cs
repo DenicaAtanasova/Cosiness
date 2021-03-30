@@ -39,11 +39,10 @@
         public async Task DeleteAsync(string id)
         {
             this.ThrowIfEmptyCollection(_context.Addresses);
+            this.ThrowIfIncorrectId(_context.Addresses, id);
 
             var addressFromDb = await _context.Addresses
                 .FirstOrDefaultAsync(x => x.Id == id);
-
-            this.ThrowIfIncorrectId(addressFromDb);
 
             _context.Addresses.Remove(addressFromDb);
             await _context.SaveChangesAsync();
@@ -51,10 +50,10 @@
 
         public async Task UpdateAsync(string id, AddressInputModel inputModel)
         {
+            this.ThrowIfIncorrectId(_context.Addresses, id);
+
             var address = await _context.Addresses
                 .FirstOrDefaultAsync(x => x.Id == id);
-
-            this.ThrowIfIncorrectId(address);
 
             _context.Entry(address).State = EntityState.Detached;
 

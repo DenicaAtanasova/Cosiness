@@ -1,5 +1,9 @@
 ﻿namespace Cosiness.Services.Data.Helpers
 {
+    using Cosiness.Models.Common;
+
+    using Microsoft.EntityFrameworkCore;
+
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -14,9 +18,12 @@
             }
         }
 
-        public static void ThrowIfIncorrectId(this IValidator service, object entity)
+        public static void ThrowIfIncorrectId<TEntity>(
+            this IValidator service, 
+            DbSet<TEntity> dbSet, string entityId)
+            where TEntity : BaseEntity<string>
         {
-            if (entity is null)
+            if (!dbSet.Any(x => x.Id == entityId))
             {
                 throw new ArgumentException($"{service.GetType().Name} - Incorrect id!");
             }

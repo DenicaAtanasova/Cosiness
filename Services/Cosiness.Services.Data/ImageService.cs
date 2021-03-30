@@ -45,10 +45,10 @@
 
         public async Task UpdateAsync(string id, string fileName, Stream fileContent)
         {
+            this.ThrowIfIncorrectId(_context.Images, id);
+
             var image = await _context.Images
                 .FirstOrDefaultAsync(x => x.Id == id);
-
-            this.ThrowIfIncorrectId(image);
 
             _context.Entry(image).State = EntityState.Detached;
 
@@ -63,10 +63,10 @@
         public async Task DeleteAsync(string id)
         {
             this.ThrowIfEmptyCollection(_context.Images);
+            this.ThrowIfIncorrectId(_context.Images, id);
 
             var imageFromDb = await _context.Images
                 .FirstOrDefaultAsync(x => x.Id == id);
-            this.ThrowIfIncorrectId(imageFromDb);
 
             await _blobStorageService.DeleteAsync(imageFromDb.Caption);
             _context.Remove(imageFromDb);

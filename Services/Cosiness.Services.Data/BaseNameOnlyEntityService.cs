@@ -37,11 +37,10 @@
         public async Task DeleteAsync(string id)
         {
             this.ThrowIfEmptyCollection(_context.Set<TEntity>());
+            this.ThrowIfIncorrectId(_context.Set<TEntity>(), id);
 
             var entityFromDb = await _context.Set<TEntity>()
                 .FirstOrDefaultAsync(x => x.Id == id);
-
-            this.ThrowIfIncorrectId(entityFromDb);
 
             _context.Set<TEntity>().Remove(entityFromDb);
             await _context.SaveChangesAsync();
@@ -50,10 +49,11 @@
         public async Task UpdateAsync(string id, string name)
         {
             this.ThrowIfNullOrEmpty(name);
+            this.ThrowIfIncorrectId(_context.Set<TEntity>(), id);
+
 
             var entityFromDb = await _context.Set<TEntity>()
                 .FirstOrDefaultAsync(x => x.Id == id);
-            this.ThrowIfIncorrectId(entityFromDb);
 
             entityFromDb.Name = name;
 

@@ -2,8 +2,6 @@
 {
     public interface IBaseNameOnlyEntity<TKey>
     {
-        TKey Id { get; set; }
-
         string Name { get; set; }
     }
 }
