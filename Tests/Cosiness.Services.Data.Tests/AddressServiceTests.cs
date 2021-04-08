@@ -101,6 +101,7 @@
 
             var exception = await Assert.ThrowsAsync<ArgumentException>(
                 async () => await _addressesService.UpdateAsync(incorrectId, address));
+
             var expectedMessage = ErrorMessage.GetIncorrectIdMessage(_addressesService.GetType().Name);
 
             Assert.Equal(expectedMessage, exception.Message);
