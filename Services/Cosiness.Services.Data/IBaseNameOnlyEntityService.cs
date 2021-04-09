@@ -8,8 +8,6 @@
     {
         Task<string> GetIdByNameAsync(string name);
 
-        Task UpdateAsync(string id, string name);
-
         Task DeleteAsync(string id);
     }
 }

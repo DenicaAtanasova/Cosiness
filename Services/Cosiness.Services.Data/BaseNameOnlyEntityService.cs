@@ -46,21 +46,6 @@
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(string id, string name)
-        {
-            this.ThrowIfNullOrEmpty(name);
-            this.ThrowIfIncorrectId(_context.Set<TEntity>(), id);
-
-
-            var entityFromDb = await _context.Set<TEntity>()
-                .FirstOrDefaultAsync(x => x.Id == id);
-
-            entityFromDb.Name = name;
-
-            _context.Set<TEntity>().Update(entityFromDb);
-            await _context.SaveChangesAsync();
-        }
-
         private async Task<string> CreateAsync(string name)
         {
             var entity = new TEntity

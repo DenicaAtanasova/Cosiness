@@ -5,6 +5,7 @@
     using Cosiness.Models.Common;
     using Cosiness.Services.Data;
     using Cosiness.Services.Data.Tests.Common;
+
     using Microsoft.EntityFrameworkCore;
 
     using System;
@@ -63,31 +64,6 @@
             Assert.Equal(expectedMessage, exception.Message);
         }
 
-
-        [Fact]
-        public async Task UpdateAsync_ShouldWorkCorrectly()
-        {
-            var updatedEntityName = "Updated";
-            await _entitiesService.UpdateAsync(_entityId, updatedEntityName);
-
-            var updatedEntity = await _context.Set<TEntity>().FirstOrDefaultAsync();
-
-            Assert.Equal(updatedEntityName, updatedEntity.Name);
-        }
-
-        [Fact]
-        public async Task UpdateAsync_ShouldThrowWhenIncorrectId()
-        {
-            var incorrectId = Guid.NewGuid().ToString();
-            var updatedEntityName = "Incorrect Id";
-
-            var exception = await Assert.ThrowsAsync<ArgumentException>(
-                async () => await _entitiesService.UpdateAsync(incorrectId, updatedEntityName));
-            var expectedMessage = ErrorMessage.GetIncorrectIdMessage(_entitiesService.GetType().Name);
-
-            Assert.Equal(expectedMessage, exception.Message);
-        }
-
         [Fact]
         public async Task DeleteAsync_ShouldWorkCorrectly()
         {
@@ -122,7 +98,6 @@
 
         private void SeedData()
         {
-
             _context.Set<TEntity>().Add(
                 new TEntity
                 {
