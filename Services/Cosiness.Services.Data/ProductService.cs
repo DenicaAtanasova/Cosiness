@@ -98,8 +98,7 @@
             _context.Products.Update(product);
             await _context.SaveChangesAsync();
 
-            await _imageService.DeleteAsync(product.Image.Id);
-            await _imageService.CreateAsync(product.Id, inputModel.Image);
+            await _imageService.UpdateAsync(product.Id, inputModel.Image);
         }
 
         private async Task AddColorsToProductAsync (string productId, IEnumerable<string> colors)

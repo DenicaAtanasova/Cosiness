@@ -47,7 +47,7 @@
             review.Rating = inputModel.Rating;
             review.Comment = inputModel.Comment;
 
-            _context.Update(review);
+            _context.Reviews.Update(review);
             await _context.SaveChangesAsync();
         }
 

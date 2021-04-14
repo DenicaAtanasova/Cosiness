@@ -20,10 +20,10 @@
 
         public static void ThrowIfIncorrectId<TEntity>(
             this IValidator service, 
-            DbSet<TEntity> dbSet, string entityId)
+            DbSet<TEntity> entityDbSet, string entityId)
             where TEntity : BaseEntity<string>
         {
-            if (!dbSet.Any(x => x.Id == entityId))
+            if (!entityDbSet.Any(x => x.Id == entityId))
             {
                 throw new ArgumentException($"{service.GetType().Name} - Incorrect id!");
             }

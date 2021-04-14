@@ -24,6 +24,7 @@
             this.ThrowIfNullOrEmpty(name);
 
             var entityFromDb = await _context.Set<TEntity>()
+                .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Name == name);
 
             if (entityFromDb is not null)
