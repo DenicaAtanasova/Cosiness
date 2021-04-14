@@ -27,7 +27,7 @@
         {
             var address = inputModel.Map<AddressInputModel, Address>();
 
-            var townId = await _townsService.GetIdByNameAsync(inputModel.Town.Name);
+            var townId = await _townsService.GetIdByNameAsync(inputModel.TownName);
             address.TownId = townId;
 
             var createdAddress = _context.Addresses.Add(address).Entity;
@@ -60,7 +60,7 @@
             address = inputModel.Map<AddressInputModel, Address>();
             address.Id = id;
 
-            _context.Update(address);
+            _context.Addresses.Update(address);
             await _context.SaveChangesAsync();
         }       
     }

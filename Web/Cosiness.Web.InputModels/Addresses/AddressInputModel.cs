@@ -15,7 +15,7 @@
         public string AddressType { get; set; }
 
         [Required]
-        public AddressTownInputModel Town { get; set; }
+        public string TownName { get; set; }
 
         [Required]
         public string Street { get; set; }

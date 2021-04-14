@@ -51,7 +51,7 @@
         {
             var address = new AddressInputModel
             {
-                Town = new AddressTownInputModel { Name = _townName },
+                TownName =_townName,
                 Street = "Test street",
                 AddressType = AddressType.Billing.ToString(),
                 BuildingNumber = "10A"
@@ -61,7 +61,7 @@
             var addressFromDb = await _context.Addresses
                 .FirstOrDefaultAsync(x => x.Id == createdAddressId);
 
-            Assert.Equal(address.Town.Name, addressFromDb.Town.Name);
+            Assert.Equal(address.TownName, addressFromDb.Town.Name);
             Assert.Equal(address.Street, addressFromDb.Street);
             Assert.Equal(address.AddressType, addressFromDb.AddresType.ToString());
             Assert.Equal(address.BuildingNumber, addressFromDb.BuildingNumber);
@@ -72,7 +72,7 @@
         {
             var address = new AddressInputModel
             {
-                Town = new AddressTownInputModel { Name = _townName },
+                TownName = _townName,
                 Street = "Updates street",
                 AddressType = AddressType.Other.ToString(),
                 BuildingNumber = "Initial number"
@@ -93,7 +93,7 @@
             var incorrectId = Guid.NewGuid().ToString();
             var address = new AddressInputModel
             {
-                Town = new AddressTownInputModel { Name = _townName },
+                TownName = _townName,
                 Street = "Test street",
                 AddressType = AddressType.Billing.ToString(),
                 BuildingNumber = "10A"
