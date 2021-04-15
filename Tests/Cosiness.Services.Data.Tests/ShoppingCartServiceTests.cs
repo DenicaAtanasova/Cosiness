@@ -41,7 +41,7 @@
 
             Assert.NotEmpty(shoppingCartProductsBeforeClear);
 
-            await _shoppingCartService.ClearAsync(_shoppingCartId);
+            await _shoppingCartService.ClearProductsAsync(_shoppingCartId);
             var shoppingCartProductsAfterClear = _context.ShoppingCartsProducts
                 .Where(x => x.ShoppingCartId == _shoppingCartId);
 
@@ -54,7 +54,7 @@
             var incorrectId = Guid.NewGuid().ToString();
 
             var exception = await Assert.ThrowsAsync<ArgumentException>(
-                async () => await _shoppingCartService.ClearAsync(incorrectId));
+                async () => await _shoppingCartService.ClearProductsAsync(incorrectId));
             var expectedMessage = ErrorMessage.GetIncorrectIdMessage(_shoppingCartService.GetType().Name);
 
             Assert.Equal(expectedMessage, exception.Message);

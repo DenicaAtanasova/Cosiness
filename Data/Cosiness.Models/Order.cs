@@ -1,6 +1,7 @@
 ﻿namespace Cosiness.Models
 {
     using Common;
+
     using Enums;
 
     using System;
@@ -23,9 +24,15 @@
 
         public ICollection<OrderProduct> Products { get; set; }
 
+        public string RecipientId { get; set; }
+
         public CosinessUser Recipient { get; set; }
 
+        public string DeliveryAddressId { get; set; }
+
         public Address DeliveryAddress { get; set; }
+
+        public string BillingAddressId { get; set; }
 
         public Address BillingAddress { get; set; }
 

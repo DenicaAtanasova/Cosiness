@@ -3,7 +3,8 @@
     public enum OrderStatus
     {
         Processing = 1,
-        DIspatched,
-        Delivered
+        Dispatched,
+        Delivered,
+        Rejected
     }
 }

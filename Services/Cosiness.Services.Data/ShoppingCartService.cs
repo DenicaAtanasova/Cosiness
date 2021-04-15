@@ -15,7 +15,7 @@
             _context = context;
         }
 
-        public async Task ClearAsync(string id)
+        public async Task ClearProductsAsync(string id)
         {
             this.ThrowIfIncorrectId(_context.ShoppingCarts, id);
 

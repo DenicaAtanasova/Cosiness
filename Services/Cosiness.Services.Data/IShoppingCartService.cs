@@ -4,6 +4,6 @@
 
     public interface IShoppingCartService
     {
-        Task ClearAsync(string id);
+        Task ClearProductsAsync(string id);
     }
 }
