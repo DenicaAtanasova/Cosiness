@@ -1,23 +1,25 @@
-using Cosiness.Data;
-using Cosiness.Models;
-using Cosiness.Services.Data;
-using Cosiness.Services.Storage;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace Cosiness.Web
 {
+    using Cosiness.Data;
+    using Cosiness.Models;
+    using Cosiness.Services.Data;
+    using Cosiness.Services.Storage;
+
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.HttpsPolicy;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Identity.UI;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -50,9 +52,19 @@ namespace Cosiness.Web
                 .AddDefaultUI();
             
             services.AddControllersWithViews();
+            services.AddTransient<IBaseNameOnlyEntityService<Category>, BaseNameOnlyEntityService<Category>>();
+            services.AddTransient<IBaseNameOnlyEntityService<Color>, BaseNameOnlyEntityService<Color>>();
+            services.AddTransient<IBaseNameOnlyEntityService<Material>, BaseNameOnlyEntityService<Material>>();
+            services.AddTransient<IBaseNameOnlyEntityService<Set>, BaseNameOnlyEntityService<Set>>();
+            services.AddTransient<IBaseNameOnlyEntityService<Dimension>, BaseNameOnlyEntityService<Dimension>>();
             services.AddTransient<IBaseNameOnlyEntityService<Town>, BaseNameOnlyEntityService<Town>>();
+            services.AddTransient<IAddressService, AddressService>();
             services.AddTransient<IImageService, ImageService>();
             services.AddTransient<IFileStorage, BlobStorageService>();
+            services.AddTransient<IReviewService, ReviewService>();
+            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IShoppingCartService, ShoppingCartService>();
+            services.AddTransient<IOrderService, OrderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -82,6 +94,7 @@ namespace Cosiness.Web
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
                 endpoints.MapRazorPages();
             });
         }
