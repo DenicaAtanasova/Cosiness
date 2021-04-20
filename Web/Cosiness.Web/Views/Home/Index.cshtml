@@ -1,24 +1,14 @@
 ﻿@model Cosiness.Web.InputModels.Products.ProductInputModel
+@using Microsoft.AspNetCore.Identity
+
+@inject UserManager<CosinessUser> UserManager
 @{
     ViewData["Title"] = "Home Page";
+    //var user = await UserManager.GetUserAsync(this.User);
+    //var roles = await UserManager.GetRolesAsync(user);
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    <form id="form" method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="Index">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="form-group">
-                    <label asp-for="Image"></label>
-                    <div class="custom-file">
-                        <label asp-for="Image" class="custom-file-label">Choose file</label>
-                        <input type="file" asp-for="Image" class="custom-file-input">
-                        <span asp-validation-for="Image" class="text-danger"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <button id="update-profile-button" type="submit" class="btn btn-che">Save</button>
-    </form>
 </div>

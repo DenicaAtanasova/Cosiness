@@ -1,20 +1,20 @@
-﻿using Cosiness.Data;
-using Cosiness.Models;
-using Cosiness.Services.Data;
-using Cosiness.Web.InputModels.Products;
-using Cosiness.Web.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-
-namespace Cosiness.Web.Controllers
+﻿namespace Cosiness.Web.Controllers
 {
+    using Cosiness.Data;
+    using Cosiness.Models;
+    using Cosiness.Services.Data;
+    using Cosiness.Web.InputModels.Products;
+    using Cosiness.Web.Models;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -26,8 +26,12 @@ namespace Cosiness.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
+            if (this.User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home", new { area = "Admin" });
+            }
+
             return View();
-            var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
         }
 
         public IActionResult Privacy()
