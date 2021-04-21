@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\Cosiness.Models\Cosiness.Models.csproj" />
+    <ProjectReference Include="..\..\Services\Cosiness.Services.Mapping\Cosiness.Services.Mapping.csproj" />
+  </ItemGroup>
+
+</Project>

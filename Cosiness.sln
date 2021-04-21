@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosiness.Web.InputModels", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosiness.Services.Storage", "Services\Cosiness.Services.Storage\Cosiness.Services.Storage.csproj", "{D0E1B9FC-6B2A-4BEF-A9A5-14EF5E8EDC38}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosiness.Web.ViewModels", "Web\Cosiness.Web.ViewModels\Cosiness.Web.ViewModels.csproj", "{72D3154B-50F9-4204-BF8D-0915515F4090}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +67,10 @@ Global
 		{D0E1B9FC-6B2A-4BEF-A9A5-14EF5E8EDC38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0E1B9FC-6B2A-4BEF-A9A5-14EF5E8EDC38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0E1B9FC-6B2A-4BEF-A9A5-14EF5E8EDC38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72D3154B-50F9-4204-BF8D-0915515F4090}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72D3154B-50F9-4204-BF8D-0915515F4090}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72D3154B-50F9-4204-BF8D-0915515F4090}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72D3154B-50F9-4204-BF8D-0915515F4090}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,6 +84,7 @@ Global
 		{C84C56C9-8E54-4E14-B1A0-5936F05EF1BD} = {2CA6C098-4CA5-4925-AFB2-989EB577BE9B}
 		{0488C79E-DCE1-4279-8DF3-238B9C745FAE} = {86FF132E-30B2-486A-A3D0-BCCFD373F3CA}
 		{D0E1B9FC-6B2A-4BEF-A9A5-14EF5E8EDC38} = {2CA6C098-4CA5-4925-AFB2-989EB577BE9B}
+		{72D3154B-50F9-4204-BF8D-0915515F4090} = {86FF132E-30B2-486A-A3D0-BCCFD373F3CA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D9B231FB-422E-4D53-90C0-0A4483CDA55A}

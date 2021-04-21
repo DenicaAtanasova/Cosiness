@@ -35,6 +35,8 @@
 
         public decimal Price { get; set; }
 
+        public Storage Storage { get; set; }
+
         public ICollection<ProductColor> Colors { get; set; }
 
         public ICollection<ProductMaterial> Materials { get; set; }

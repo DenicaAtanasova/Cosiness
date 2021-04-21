@@ -45,6 +45,8 @@
 
         public DbSet<Review> Reviews { get; set; }
 
+        public DbSet<Storage> Storage { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<OrderProduct>()
