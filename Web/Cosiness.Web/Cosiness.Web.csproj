@@ -18,6 +18,7 @@
     <ProjectReference Include="..\..\Data\Cosiness.Data\Cosiness.Data.csproj" />
     <ProjectReference Include="..\..\Data\Cosiness.Models\Cosiness.Models.csproj" />
     <ProjectReference Include="..\..\Services\Cosiness.Services.Data\Cosiness.Services.Data.csproj" />
+    <ProjectReference Include="..\Cosiness.Web.ViewModels\Cosiness.Web.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

@@ -3,22 +3,18 @@ namespace Cosiness.Web
     using Cosiness.Data;
     using Cosiness.Models;
     using Cosiness.Services.Data;
+    using Cosiness.Services.Mapping;
     using Cosiness.Services.Storage;
-
+    using Cosiness.Web.InputModels.Products;
+    using Cosiness.Web.ViewModels;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.HttpsPolicy;
     using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Identity.UI;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
+    using System.Reflection;
 
     public class Startup
     {
@@ -70,6 +66,9 @@ namespace Cosiness.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            AutoMapperConfig.RegisterMappings(
+                typeof(ErrorViewModel).GetTypeInfo().Assembly,
+                typeof(ProductInputModel).GetTypeInfo().Assembly);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

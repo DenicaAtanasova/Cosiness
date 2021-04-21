@@ -4,7 +4,7 @@
     using Cosiness.Models;
     using Cosiness.Services.Data;
     using Cosiness.Web.InputModels.Products;
-    using Cosiness.Web.Models;
+    using Cosiness.Web.ViewModels;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
