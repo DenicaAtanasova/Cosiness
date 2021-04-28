@@ -25,7 +25,6 @@ namespace Cosiness.Web
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<CosinessDbContext>(options =>
@@ -61,14 +60,15 @@ namespace Cosiness.Web
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IShoppingCartService, ShoppingCartService>();
             services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IStorageService, StorageService>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             AutoMapperConfig.RegisterMappings(
                 typeof(ErrorViewModel).GetTypeInfo().Assembly,
                 typeof(ProductInputModel).GetTypeInfo().Assembly);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -77,9 +77,9 @@ namespace Cosiness.Web
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
