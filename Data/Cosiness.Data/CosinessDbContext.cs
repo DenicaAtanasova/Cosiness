@@ -45,7 +45,7 @@
 
         public DbSet<Review> Reviews { get; set; }
 
-        public DbSet<Storage> Storage { get; set; }
+        public DbSet<Storage> Storages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
