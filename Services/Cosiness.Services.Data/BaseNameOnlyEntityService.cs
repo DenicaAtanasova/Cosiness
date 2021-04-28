@@ -3,10 +3,12 @@
     using Cosiness.Data;
     using Cosiness.Models.Common;
     using Cosiness.Services.Data.Helpers;
-
+    using Cosiness.Services.Mapping;
     using Microsoft.EntityFrameworkCore;
 
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     public class BaseNameOnlyEntityService<TEntity> 
@@ -47,6 +49,11 @@
             await _context.SaveChangesAsync();
         }
 
+        public async Task<IEnumerable<string>> GetAllAsync()
+            => await _context.Set<TEntity>()
+                .Select(x => x.Name)
+                .ToListAsync();
+        
         private async Task<string> CreateAsync(string name)
         {
             var entity = new TEntity

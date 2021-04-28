@@ -9,6 +9,7 @@
     using Microsoft.EntityFrameworkCore;
 
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Xunit;
@@ -96,6 +97,22 @@
             Assert.Equal(expectedMessage, exception.Message);
         }
 
+        [Fact]
+        public async Task GetAllAsync_ShouldWorkCorrectly()
+        {
+            _context.Set<TEntity>().Add(
+                new TEntity
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = "Test"
+                });
+            _context.SaveChanges();
+
+            var entities = await _entitiesService.GetAllAsync();
+            var expectedCollection = new List<string>{ "Initial", "Test" };
+            Assert.Equal(expectedCollection, entities);
+        }
+
         private void SeedData()
         {
             _context.Set<TEntity>().Add(
@@ -109,10 +126,10 @@
         }
     }
 
-    public class SetsServiceTests : BaseNameOnlyEntityServiceTests<Set> { }
-    public class CategoriesServiceTests : BaseNameOnlyEntityServiceTests<Category> { }
-    public class MaterialsServiceTests : BaseNameOnlyEntityServiceTests<Material> { }
-    public class TownsServiceTests : BaseNameOnlyEntityServiceTests<Town> { }
-    public class ColorsServiceTests : BaseNameOnlyEntityServiceTests<Color> { }
+    public class SetServiceTests : BaseNameOnlyEntityServiceTests<Set> { }
+    public class CategoryServiceTests : BaseNameOnlyEntityServiceTests<Category> { }
+    public class MaterialServiceTests : BaseNameOnlyEntityServiceTests<Material> { }
+    public class TownServiceTests : BaseNameOnlyEntityServiceTests<Town> { }
+    public class ColorServiceTests : BaseNameOnlyEntityServiceTests<Color> { }
     public class DimensionServiceTests : BaseNameOnlyEntityServiceTests<Dimension> { }
 }
