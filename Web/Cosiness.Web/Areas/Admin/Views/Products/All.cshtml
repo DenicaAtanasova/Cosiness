@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Cosiness.Web.ViewModels.Admin.Products.ProductAllViewModel>
+
+<h1>Products</h1>
+<table>
+    <tr>
+        <th>RefNumber</th>
+        <th>Quantity</th>
+    </tr>
+    @foreach (var product in Model)
+    {
+    <tr>
+        <td>@product.RefNumber</td>
+        <td>@product.StorageQuantity</td>
+    </tr>
+    }
+</table>

@@ -28,6 +28,7 @@
             _context = context;
             _shoppingCartService = shoppingCartService;
         }
+
         public async Task<string> CreateAsync(OrderInputModel inputModel)
         {
             await _shoppingCartService.ClearProductsAsync(inputModel.RecipientId);
@@ -45,7 +46,7 @@
                 order.DeliveryCost = _deliveryCost;
             }
             order.TotalCost = order.Cost * order.Discount + order.DeliveryCost;
-            order.RefNumber = await GetRefNumber();
+            order.RefNumber = await GenerateRefNumber();
 
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
@@ -53,6 +54,7 @@
             return order.Id;
         }
 
+        //TODO Make separate Dispatch, Reject and Deliver order methods
         public async Task UpdateStatusAsync(string id, string status)
         {
             var order = await _context.Orders
@@ -64,7 +66,7 @@
             await _context.SaveChangesAsync();
         }
 
-        private async Task<string> GetRefNumber()
+        private async Task<string> GenerateRefNumber()
         {
             var date = DateTime.UtcNow;
             var datePattern = $"{date.Year}{date.Month}{date.Day}";

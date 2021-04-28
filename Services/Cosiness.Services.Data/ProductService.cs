@@ -3,6 +3,7 @@
     using Cosiness.Data;
     using Cosiness.Models;
     using Cosiness.Services.Data.Helpers;
+    using Cosiness.Services.Mapping;
     using Cosiness.Web.InputModels.Products;
 
     using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,7 @@
         private readonly IBaseNameOnlyEntityService<Color> _colorService;
         private readonly IBaseNameOnlyEntityService<Material> _materialService;
         private readonly IImageService _imageService;
+        private readonly IStorageService _storageService;
 
         public ProductService(
             CosinessDbContext context,
@@ -29,7 +31,8 @@
             IBaseNameOnlyEntityService<Dimension> dimensionService,
             IBaseNameOnlyEntityService<Color> colorService,
             IBaseNameOnlyEntityService<Material> materialService,
-            IImageService imageService)
+            IImageService imageService,
+            IStorageService storageService)
         {
             _context = context;
             _categoryService = categoryService;
@@ -38,6 +41,7 @@
             _colorService = colorService;
             _materialService = materialService;
             _imageService = imageService;
+            _storageService = storageService;
         }
 
         public async Task<string> CreateAsync(ProductInputModel inputModel)
@@ -59,6 +63,8 @@
             await _context.SaveChangesAsync();
 
             await _imageService.CreateAsync(product.Id, inputModel.Image);
+            //TODO Test
+            await _storageService.CreateAsync(product.Id, inputModel.Quantity);
 
             return product.Id;
         }
@@ -100,6 +106,13 @@
 
             await _imageService.UpdateAsync(product.Id, inputModel.Image);
         }
+
+        //TODO Test
+        public async Task<IEnumerable<TEntity>> GetAllAsync<TEntity>()
+            => await _context.Products
+            .AsNoTracking()
+            .To<TEntity>()
+            .ToListAsync();
 
         private async Task AddColorsToProductAsync (string productId, IEnumerable<string> colors)
         {

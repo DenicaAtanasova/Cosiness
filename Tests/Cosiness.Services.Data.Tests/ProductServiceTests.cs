@@ -119,6 +119,8 @@
                 .Returns(new MemoryStream());
             _image = imageMock.Object;
 
+            var storageService = new Mock<IStorageService>();
+
             _productService = new ProductService(
                 _context,
                 categoryService.Object,
@@ -126,7 +128,8 @@
                 dimensionService.Object,
                 colorService.Object,
                 materialService.Object,
-                imageService.Object);
+                imageService.Object,
+                storageService.Object);
         }
 
         [Fact]
