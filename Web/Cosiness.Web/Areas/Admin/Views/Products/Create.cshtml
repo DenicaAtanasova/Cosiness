@@ -1,5 +1,83 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@model Cosiness.Web.InputModels.Products.ProductInputModel
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-area="Admin" asp-controller="Products" asp-action="Add" enctype="multipart/form-data">
+            <h4>Add new pproduct.</h4>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="RefNumber"></label>
+                <input asp-for="RefNumber" class="form-control" />
+                <span asp-validation-for="RefNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Price"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quantity"></label>
+                <input asp-for="Quantity" min="0" class="form-control" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Category"></label>
+                <input asp-for="Category" list="categories-list" class="form-control" />
+                <vc:categories-list></vc:categories-list>
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Set"></label>
+                <input asp-for="Set" list="sets-list" class="form-control" />
+                <vc:sets-list></vc:sets-list>
+                <span asp-validation-for="Set" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dimension"></label>
+                <input asp-for="Dimension" list="dimensions-list" class="form-control" />
+                <vc:dimensions-list></vc:dimensions-list>
+                <span asp-validation-for="Dimension" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Colors"></label>
+                <input asp-for="Colors" list="colors-list" class="form-control" />
+                <vc:colors-list></vc:colors-list>
+                <span class="add-input" id="Colors">Add</span>
+                <span asp-validation-for="Colors" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Materials"></label>
+                <input asp-for="Materials" list="materials-list" class="form-control" />
+                <vc:materials-list></vc:materials-list>
+                <span class="add-input" id="Materials">Add</span>
+                <span asp-validation-for="Materials" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image"></label>
+                <div class="custom-file">
+                    <label asp-for="Image" class="custom-file-label">Choose file</label>
+                    <input type="file" asp-for="Image" class="custom-file-input">
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        [...document.getElementsByClassName('add-input')].forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = btn.id;
+                const inputElement = document.getElementById(id);
+                const copy = inputElement.cloneNode(true);
+                copy.value = '';
+                btn.parentNode.insertBefore(copy, btn);
+            });
+        });
+    </script>
 }

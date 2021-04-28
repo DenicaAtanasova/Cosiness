@@ -25,6 +25,9 @@
         public decimal Price { get; set; }
 
         [Required]
+        public int Quantity { get; set; }
+
+        [Required]
         [AllowedFormats(new string[] { ".jpg", ".png" })]
         public IFormFile Image { get; set; }
 

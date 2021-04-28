@@ -1,0 +1,9 @@
+﻿@model IEnumerable<string>
+
+<datalist id="materials-list">
+    <option default></option>
+    @foreach (var item in Model)
+    {
+        <option>@item</option>
+    }
+</datalist>
