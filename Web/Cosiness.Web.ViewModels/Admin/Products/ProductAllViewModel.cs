@@ -9,6 +9,8 @@
 
         public string RefNumber { get; set; }
 
+        public string ImageUrl { get; set; }
+
         public int StorageQuantity { get; set; }
     }
 }

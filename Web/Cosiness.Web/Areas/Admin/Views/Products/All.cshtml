@@ -5,13 +5,21 @@
 <table>
     <tr>
         <th>RefNumber</th>
+        <th>Image</th>
         <th>Quantity</th>
+        <th>Actions</th>
     </tr>
     @foreach (var product in Model)
     {
     <tr>
         <td>@product.RefNumber</td>
+        <td>
+            <img src="@product.ImageUrl" height="80" alt="no picture">
+        </td>
         <td>@product.StorageQuantity</td>
+        <td>
+            <a asp-area="Admin" asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id">Edit</a>
+        </td>
     </tr>
     }
 </table>
