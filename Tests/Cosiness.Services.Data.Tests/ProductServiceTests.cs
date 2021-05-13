@@ -119,8 +119,6 @@
                 .Returns(new MemoryStream());
             _image = imageMock.Object;
 
-            var storageService = new Mock<IStorageService>();
-
             _productService = new ProductService(
                 _context,
                 categoryService.Object,
@@ -128,8 +126,7 @@
                 dimensionService.Object,
                 colorService.Object,
                 materialService.Object,
-                imageService.Object,
-                storageService.Object);
+                imageService.Object);
         }
 
         [Fact]
@@ -142,7 +139,9 @@
                 Dimension = _dimensionSmallName,
                 Colors = new List<string> { _colorBlueName, _colorRedName},
                 Materials = new List<string> { _materialSatinName, _materialSilkName },
-                Image = _image
+                Image = _image,
+                Price = 200M,
+                StorageQuantity = 28
             };
 
             var productId = await _productService.CreateAsync(product);
@@ -153,6 +152,8 @@
             Assert.Equal(product.Category, productFromDb.Category.Name);
             Assert.Equal(product.Set, productFromDb.Set.Name);
             Assert.Equal(product.Dimension, productFromDb.Dimension.Name);
+            Assert.Equal(product.StorageQuantity, productFromDb.Storage.Quantity);
+            Assert.Equal(product.Price, productFromDb.Price);
             Assert.Equal(product.Colors, productFromDb.Colors.Select(x => x.Color.Name));
             Assert.Equal(product.Materials, productFromDb.Materials.Select(x => x.Material.Name));
         }
@@ -275,7 +276,8 @@
                     {
                         Caption = _imageName,
                         Url = "image-url"
-                    }
+                    },
+                    Storage = new Storage { Quantity = 10}
                 }).Entity;
 
             _productId = product.Id;

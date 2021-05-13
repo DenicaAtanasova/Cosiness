@@ -22,7 +22,6 @@
         private readonly IBaseNameOnlyEntityService<Color> _colorService;
         private readonly IBaseNameOnlyEntityService<Material> _materialService;
         private readonly IImageService _imageService;
-        private readonly IStorageService _storageService;
 
         public ProductService(
             CosinessDbContext context,
@@ -31,8 +30,7 @@
             IBaseNameOnlyEntityService<Dimension> dimensionService,
             IBaseNameOnlyEntityService<Color> colorService,
             IBaseNameOnlyEntityService<Material> materialService,
-            IImageService imageService,
-            IStorageService storageService)
+            IImageService imageService)
         {
             _context = context;
             _categoryService = categoryService;
@@ -41,7 +39,6 @@
             _colorService = colorService;
             _materialService = materialService;
             _imageService = imageService;
-            _storageService = storageService;
         }
 
         public async Task<string> CreateAsync(ProductInputModel inputModel)
@@ -53,7 +50,8 @@
                 Price = inputModel.Price,
                 CategoryId = await _categoryService.GetIdByNameAsync(inputModel.Category),
                 SetId = await _setService.GetIdByNameAsync(inputModel.Set),
-                DimensionId = await _dimensionService.GetIdByNameAsync(inputModel.Dimension)
+                DimensionId = await _dimensionService.GetIdByNameAsync(inputModel.Dimension),
+                Storage = new Storage { Quantity = inputModel.StorageQuantity}
             };
 
             _context.Products.Add(product);
@@ -63,8 +61,6 @@
             await _context.SaveChangesAsync();
 
             await _imageService.CreateAsync(product.Id, inputModel.Image);
-            //TODO Test
-            await _storageService.CreateAsync(product.Id, inputModel.Quantity);
 
             return product.Id;
         }
@@ -105,6 +101,18 @@
             await _context.SaveChangesAsync();
 
             await _imageService.UpdateAsync(product.Id, inputModel.Image);
+        }
+
+        public async Task<TEntity> GetByIdAsync<TEntity>(string id)
+        {
+            this.ThrowIfIncorrectId(_context.Products, id);
+
+            var product = await _context.Products
+                .Where(x => x.Id == id)
+                .To<TEntity>()
+                .FirstOrDefaultAsync();
+
+            return product;
         }
 
         //TODO Test

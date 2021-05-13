@@ -14,5 +14,7 @@
         Task DeleteByIdAsync(string id);
 
         Task<IEnumerable<TEntity>> GetAllAsync<TEntity>();
+
+        Task<TEntity> GetByIdAsync<TEntity>(string id);
     }
 }
