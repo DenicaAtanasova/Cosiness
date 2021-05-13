@@ -1,0 +1,96 @@
+﻿@model Cosiness.Web.InputModels.Products.ProductEditInputModel
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-area="Admin" asp-controller="Products" asp-action="Edit" enctype="multipart/form-data">
+            <h4>Add new product.</h4>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="RefNumber"></label>
+                <input asp-for="RefNumber" class="form-control" />
+                <span asp-validation-for="RefNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryName"></label>
+                <input asp-for="CategoryName" list="categories-list" class="form-control" />
+                <vc:categories-list></vc:categories-list>
+                <span asp-validation-for="CategoryName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StorageQuantity"></label>
+                <input asp-for="StorageQuantity" min="0" class="form-control" />
+                <span asp-validation-for="StorageQuantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SetName"></label>
+                <input asp-for="SetName" list="sets-list" class="form-control" />
+                <vc:sets-list></vc:sets-list>
+                <span asp-validation-for="SetName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DimensionName"></label>
+                <input asp-for="DimensionName" list="dimensions-list" class="form-control" />
+                <vc:dimensions-list></vc:dimensions-list>
+                <span asp-validation-for="DimensionName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @foreach (var color in Model.Colors)
+                {
+                    <label asp-for="@color.ColorName"></label>
+                    <input asp-for="@color.ColorName" class="form-control" disabled/>
+                }
+                <vc:colors-list></vc:colors-list>
+                <span class="add-input" id="color_ColorName">Add</span>
+                <span asp-validation-for="Colors" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @foreach (var material in Model.Materials)
+                {
+                    <label asp-for="@material.MaterialName"></label>
+                    <input asp-for="@material.MaterialName" class="form-control" disabled />
+                }
+                <vc:materials-list></vc:materials-list>
+                <span class="add-input" id="material_MaterialName">Add</span>
+                <span asp-validation-for="Materials" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+            <label asp-for="Image"></label>
+            <div class="custom-file">
+                <label asp-for="Image" class="custom-file-label">Choose file</label>
+                <input type="file" asp-for="Image" class="custom-file-input">
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+        </div>*@
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        [...document.getElementsByClassName('add-input')].forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = btn.id;
+                const propName = id.split("_")[0];
+
+                const labelElement = document.querySelector(`label[for='${id}']`);
+                const labelCopy = labelElement.cloneNode(true);
+                btn.parentNode.insertBefore(labelCopy, btn);
+
+                const inputElement = document.querySelector(`input#${id}`);
+                const inputCopy = inputElement.cloneNode(true);
+                inputCopy.value = '';
+                const listName = `${propName}s-list`;
+                inputCopy.setAttribute("list", listName);
+                btn.parentNode.insertBefore(inputCopy, btn);
+            });
+        });
+    </script>
+}

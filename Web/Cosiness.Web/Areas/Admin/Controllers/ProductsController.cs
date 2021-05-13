@@ -35,5 +35,13 @@
             await _productService.CreateAsync(inputModel);
             return RedirectToAction(nameof(All));
         }
+
+        public async Task<IActionResult> Edit(string id)
+        {
+            var product = await _productService
+                .GetByIdAsync<ProductEditInputModel>(id);
+
+            return View(product);
+        }
     }
 }
